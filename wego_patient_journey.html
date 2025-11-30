@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeGo Patient Journey - Dual Track Flow</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1F4E78 0%, #2E75B5 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .intro {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            border-left: 5px solid #2E75B5;
+        }
+
+        .intro h2 {
+            color: #1F4E78;
+            margin-bottom: 15px;
+        }
+
+        .intro p {
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .legend {
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border: 2px solid #e0e0e0;
+        }
+
+        .legend h3 {
+            color: #1F4E78;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+        }
+
+        .legend-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #2E75B5;
+        }
+
+        .legend-color {
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+            margin-right: 12px;
+            border: 2px solid #333;
+        }
+
+        .clinical-color { background: #E3F2FD; border-color: #2196F3; }
+        .business-color { background: #E8F5E9; border-color: #4CAF50; }
+        .decision-color { background: #FFF3E0; border-color: #FF9800; }
+        .upsell-color { background: #F3E5F5; border-color: #9C27B0; }
+        .behind-color { background: #FAFAFA; border-color: #9E9E9E; }
+
+        .diagram-container {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border: 2px solid #e0e0e0;
+            overflow-x: auto;
+        }
+
+        .section {
+            margin: 40px 0;
+        }
+
+        .section h2 {
+            color: #1F4E78;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #2E75B5;
+        }
+
+        .info-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .info-box h4 {
+            color: #856404;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .info-box ul {
+            margin-left: 20px;
+            color: #555;
+        }
+
+        .info-box ul li {
+            margin: 8px 0;
+        }
+
+        .price-tag {
+            background: #4CAF50;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-weight: bold;
+            display: inline-block;
+            margin: 5px;
+        }
+
+        .key-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .highlight-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .highlight-card h4 {
+            color: #1F4E78;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .highlight-card p {
+            color: #555;
+            font-size: 0.95em;
+        }
+
+        footer {
+            background: #1F4E78;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        .mermaid {
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+
+            .legend-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>WeGo Patient Journey</h1>
+            <h2>Complete Dual-Track Flow</h2>
+            <p>Clinical Process & Business Revenue Streams</p>
+        </header>
+
+        <div class="content">
+            <!-- Introduction -->
+            <div class="intro">
+                <h2>Overview</h2>
+                <p>This comprehensive patient journey map shows the complete WeGo experience from initial registration through ongoing weight management. The dual-track visualization displays both the clinical care pathway and corresponding business revenue opportunities.</p>
+                <p><strong>Key Features:</strong> Virtual consultations via Videomed, rapid medication delivery (60-90 minutes), personalized care with follow-up support, and strategic upsell opportunities at Body Lab.</p>
+            </div>
+
+            <!-- Legend -->
+            <div class="legend">
+                <h3>Journey Map Legend</h3>
+                <div class="legend-grid">
+                    <div class="legend-item">
+                        <div class="legend-color clinical-color"></div>
+                        <div><strong>Clinical Steps</strong><br>Patient-facing care processes</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color business-color"></div>
+                        <div><strong>Business Steps</strong><br>Revenue & conversion points</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color decision-color"></div>
+                        <div><strong>Decision Points</strong><br>Patient suitability & choices</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color upsell-color"></div>
+                        <div><strong>Upsell Opportunities</strong><br>Package & service upgrades</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color behind-color"></div>
+                        <div><strong>Behind-the-Scenes</strong><br>Internal operational steps</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pricing Overview -->
+            <div class="section">
+                <h2>Pricing Structure</h2>
+                <div class="key-highlights">
+                    <div class="highlight-card">
+                        <h4>Initial Consultation</h4>
+                        <p><span class="price-tag">R750</span></p>
+                        <p>Includes: Virtual or in-person consultation + Blood work (Lancet) + Eligibility assessment</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>4-Week Package</h4>
+                        <p><span class="price-tag">Price on Consultation</span></p>
+                        <p>Includes: 4 weeks medication + First injection support + Progress tracking</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>8-Week Package</h4>
+                        <p><span class="price-tag">Price on Consultation</span></p>
+                        <p>Includes: 8 weeks medication + Follow-up consultation + Dosage management</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>Follow-up Consultations</h4>
+                        <p><span class="price-tag">R899-950</span></p>
+                        <p>Includes: Two virtual consultations + Dosage review + Package continuation guidance</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Complete Journey Flow -->
+            <div class="section">
+                <h2>Complete Patient Journey - Dual Track</h2>
+                <div class="diagram-container">
+                    <div class="mermaid">
+graph TB
+    Start([Patient Starts Journey])
+    
+    subgraph Clinical["CLINICAL TRACK - Patient Experience"]
+        C1[Registration & Account Creation]
+        C2[Clinical Form Completion<br/>Exclusion Criteria Upfront]
+        C3{Passes Initial<br/>Screening?}
+        C4[Payment: R750<br/>Consultation + Blood Work]
+        C5[Blood Work Sent to Lancet<br/>included in R750]
+        C6[Virtual Receptionist Books<br/>Consultation via Carelink]
+        C7[Virtual Consultation via Videomed<br/>or In-Person at Medirite Sites]
+        C8[Patient Care & Wellness<br/>Counseling Session]
+        C9{Doctor Determines<br/>Suitable for GLP-1?}
+        C10[eScript Sent to<br/>Pharmacy Center<br/>via Videomed]
+        C11[Pharmacy Center<br/>Dispenses Medication]
+        C12[Delivery via Delmed + Uber<br/>or Takealot Now<br/>60-90 minutes]
+        C13[Body Lab Contact<br/>Patient Support & Services]
+        C14[First Injection /<br/>Medication Start]
+        C15[Dashboard Access<br/>Track Progress]
+        C16[Log Weight & Injections]
+        C17{4-Week or<br/>8-Week<br/>Follow-up?}
+        C18[Follow-up Virtual<br/>Consultation]
+        C19[Dosage Review &<br/>Progress Assessment]
+        C20{Continue<br/>Package?}
+        C21[Package Continuation]
+        C22[Ongoing Care Loop]
+        
+        Rejected1([Not Eligible<br/>Refund/Alternative Options])
+        Rejected2([Not Suitable After Consult<br/>Consultation Fee Retained])
+        End1([Patient Discontinues])
+    end
+    
+    subgraph Business["BUSINESS TRACK - Revenue Streams"]
+        B1[Lead Capture]
+        B2[Qualification Filter]
+        B3[Revenue: R750<br/>Consultation Fee]
+        B4[Blood Work Cost<br/>Subsidized]
+        B5[Doctor Consultation<br/>Revenue Split]
+        B6{Package<br/>Selection}
+        B7[4-Week Package Sale<br/>Pricing TBD]
+        B8[8-Week Package Sale<br/>Pricing TBD]
+        B9[Medication Dispensing<br/>Revenue]
+        B10[Body Lab Upsell<br/>Aesthetic Services]
+        B11[Follow-up Billing<br/>R899-950 for 2 Consults]
+        B12{Dosage<br/>Increase?}
+        B13[Higher Dosage Upsell<br/>Premium Pricing]
+        B14{Package<br/>Upgrade?}
+        B15[Extended Package Sale<br/>8-Week or Longer]
+        B16[Recurring Revenue<br/>Loyalty Program]
+    end
+    
+    Start --> C1
+    C1 --> C2
+    C2 --> C3
+    
+    C3 -->|Yes| C4
+    C3 -->|No| Rejected1
+    
+    C4 --> C5
+    C5 --> C6
+    C6 --> C7
+    C7 --> C8
+    C8 --> C9
+    
+    C9 -->|Yes| C10
+    C9 -->|No| Rejected2
+    
+    C10 -.->|Behind Scenes| C11
+    C11 -.->|Behind Scenes| C12
+    C12 --> C13
+    C13 --> C14
+    C14 --> C15
+    C15 --> C16
+    C16 --> C17
+    
+    C17 -->|4-Week| C18
+    C17 -->|8-Week| C18
+    
+    C18 --> C19
+    C19 --> C20
+    
+    C20 -->|Yes| C21
+    C20 -->|No| End1
+    
+    C21 --> C22
+    C22 --> C17
+    
+    %% Business Track Connections
+    C1 -.-> B1
+    C2 -.-> B2
+    C4 -.-> B3
+    C5 -.-> B4
+    C7 -.-> B5
+    C9 -.->|If Yes| B6
+    
+    B6 -->|4-Week| B7
+    B6 -->|8-Week| B8
+    
+    B7 -.-> B9
+    B8 -.-> B9
+    
+    C13 -.-> B10
+    C18 -.-> B11
+    C19 -.-> B12
+    
+    B12 -->|Yes| B13
+    B12 -->|No| B14
+    
+    C20 -.-> B14
+    B14 -->|Yes| B15
+    B14 -->|No| B16
+    
+    B15 -.-> B16
+    B13 -.-> B16
+    
+    %% Styling
+    style Start fill:#4CAF50,stroke:#2E7D32,stroke-width:3px,color:#fff
+    style C22 fill:#4CAF50,stroke:#2E7D32,stroke-width:3px,color:#fff
+    style Rejected1 fill:#F44336,stroke:#C62828,stroke-width:2px,color:#fff
+    style Rejected2 fill:#FF9800,stroke:#E65100,stroke-width:2px,color:#fff
+    style End1 fill:#9E9E9E,stroke:#616161,stroke-width:2px,color:#fff
+    
+    style C1 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style C2 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style C4 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style C5 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style C6 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style C7 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style C8 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style C14 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style C15 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style C16 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style C18 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style C19 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style C21 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    
+    style C3 fill:#FFF3E0,stroke:#FF9800,stroke-width:3px
+    style C9 fill:#FFF3E0,stroke:#FF9800,stroke-width:3px
+    style C17 fill:#FFF3E0,stroke:#FF9800,stroke-width:3px
+    style C20 fill:#FFF3E0,stroke:#FF9800,stroke-width:3px
+    
+    style C10 fill:#FAFAFA,stroke:#9E9E9E,stroke-width:2px
+    style C11 fill:#FAFAFA,stroke:#9E9E9E,stroke-width:2px
+    style C12 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    
+    style C13 fill:#F3E5F5,stroke:#9C27B0,stroke-width:3px
+    
+    style B1 fill:#E8F5E9,stroke:#4CAF50,stroke-width:2px
+    style B2 fill:#E8F5E9,stroke:#4CAF50,stroke-width:2px
+    style B3 fill:#E8F5E9,stroke:#4CAF50,stroke-width:2px
+    style B4 fill:#E8F5E9,stroke:#4CAF50,stroke-width:2px
+    style B5 fill:#E8F5E9,stroke:#4CAF50,stroke-width:2px
+    style B6 fill:#FFF3E0,stroke:#FF9800,stroke-width:3px
+    style B7 fill:#E8F5E9,stroke:#4CAF50,stroke-width:2px
+    style B8 fill:#E8F5E9,stroke:#4CAF50,stroke-width:2px
+    style B9 fill:#E8F5E9,stroke:#4CAF50,stroke-width:2px
+    style B10 fill:#F3E5F5,stroke:#9C27B0,stroke-width:3px
+    style B11 fill:#E8F5E9,stroke:#4CAF50,stroke-width:2px
+    style B12 fill:#FFF3E0,stroke:#FF9800,stroke-width:3px
+    style B13 fill:#F3E5F5,stroke:#9C27B0,stroke-width:3px
+    style B14 fill:#FFF3E0,stroke:#FF9800,stroke-width:3px
+    style B15 fill:#F3E5F5,stroke:#9C27B0,stroke-width:3px
+    style B16 fill:#E8F5E9,stroke:#4CAF50,stroke-width:2px
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Process Breakdown -->
+            <div class="section">
+                <h2>Process Details</h2>
+
+                <div class="info-box">
+                    <h4>🔍 Initial Screening & Consultation (R750)</h4>
+                    <ul>
+                        <li><strong>Registration:</strong> Patient creates account on WeGo platform</li>
+                        <li><strong>Clinical Form:</strong> Exclusion criteria checked upfront (pregnancy, breastfeeding, contraindications)</li>
+                        <li><strong>Payment:</strong> R750 covers consultation + blood work</li>
+                        <li><strong>Blood Work:</strong> Sent to Lancet (subsidized cost included in R750)</li>
+                        <li><strong>Booking:</strong> Virtual receptionist schedules via Carelink</li>
+                        <li><strong>Consultation:</strong> Virtual (Videomed) or in-person at Medirite sites</li>
+                        <li><strong>Focus:</strong> Patient care, wellness counseling, building rapport</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h4>📋 Prescription & Dispensing (Behind the Scenes)</h4>
+                    <ul>
+                        <li><strong>Doctor Approval:</strong> If suitable, doctor generates eScript</li>
+                        <li><strong>Prescription Routing:</strong> eScript sent to Pharmacy Center via Videomed</li>
+                        <li><strong>Patient Communication:</strong> Doctor tells patient "Congratulations, you can start your weight management journey. Body Lab will contact you."</li>
+                        <li><strong>Note:</strong> Patient does NOT receive script directly (prevents price shopping)</li>
+                        <li><strong>Dispensing:</strong> Pharmacy Center dispenses medication</li>
+                        <li><strong>Delivery:</strong> Delmed + Uber or Takealot Now (60-90 minute delivery)</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h4>💜 Body Lab Contact - Strategic Conversion Point</h4>
+                    <ul>
+                        <li><strong>Purpose:</strong> Patient support & service consultation</li>
+                        <li><strong>Primary Goal:</strong> Ensure smooth medication start, answer questions</li>
+                        <li><strong>Secondary Goal:</strong> Convert to Authentic Aesthetics customer</li>
+                        <li><strong>Upsell Opportunities:</strong> Additional aesthetic services, wellness programs</li>
+                        <li><strong>Package Selection:</strong> Guide patient to 4-week or 8-week package</li>
+                        <li><strong>Approach:</strong> Diplomatic, care-focused, building long-term relationship</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h4>📊 Follow-up & Continuation Strategy</h4>
+                    <ul>
+                        <li><strong>4-Week Check-in:</strong> Virtual consultation to assess progress, side effects, weight loss</li>
+                        <li><strong>8-Week Check-in:</strong> Extended assessment for longer-term patients</li>
+                        <li><strong>Follow-up Pricing:</strong> R899-950 for package covering two consultations</li>
+                        <li><strong>Dosage Review:</strong> Doctor evaluates need for dosage increase (upsell opportunity)</li>
+                        <li><strong>Package Upgrade:</strong> Transition from 4-week to 8-week packages</li>
+                        <li><strong>Doctor Preference:</strong> Same doctor for continuity (when possible)</li>
+                        <li><strong>Loyalty Program:</strong> Discounts and incentives for continued engagement</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h4>❌ Alternative Paths - Not Suitable Scenarios</h4>
+                    <ul>
+                        <li><strong>Fails Initial Screening:</strong> Refund or alternative options provided</li>
+                        <li><strong>Not Suitable After Consultation:</strong> Consultation fee (R750) retained, patient receives explanation and recommendations</li>
+                        <li><strong>Patient Discontinues:</strong> Exit with option to return, maintain relationship for future services</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Technology Stack -->
+            <div class="section">
+                <h2>Technology & Service Providers</h2>
+                <div class="key-highlights">
+                    <div class="highlight-card">
+                        <h4>Videomed</h4>
+                        <p>Virtual consultation platform for doctor-patient interactions. Handles eScript generation and transmission to pharmacy network.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>Carelink</h4>
+                        <p>Appointment booking system managed by virtual receptionist. Schedules consultations at Medirite sites or virtual slots.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>Lancet</h4>
+                        <p>Blood work laboratory services. Processes all patient blood tests included in R750 consultation fee.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>Pharmacy Center</h4>
+                        <p>Receives eScripts via Videomed, dispenses GLP-1 medications, coordinates delivery logistics.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>Delmed + Uber / Takealot Now</h4>
+                        <p>Medication delivery services providing 60-90 minute delivery to patients.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>Body Lab (Authentic Aesthetics)</h4>
+                        <p>Patient support team that manages post-consultation engagement, package selection, and aesthetic service upsells.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Performance Indicators -->
+            <div class="section">
+                <h2>Revenue Optimization Points</h2>
+                <div class="key-highlights">
+                    <div class="highlight-card">
+                        <h4>🎯 Conversion Point 1</h4>
+                        <p><strong>Clinical Form → Consultation Payment</strong></p>
+                        <p>Qualify leads early with exclusion criteria to maximize R750 conversion rate.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>🎯 Conversion Point 2</h4>
+                        <p><strong>Consultation → Package Selection</strong></p>
+                        <p>Doctor builds rapport and recommends appropriate package (4-week vs 8-week).</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>🎯 Upsell Point 1</h4>
+                        <p><strong>Body Lab Contact</strong></p>
+                        <p>Strategic conversion to Authentic Aesthetics services while supporting medication start.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>🎯 Upsell Point 2</h4>
+                        <p><strong>4-Week Follow-up</strong></p>
+                        <p>Dosage increase recommendations based on progress (higher revenue tier).</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>🎯 Upsell Point 3</h4>
+                        <p><strong>Package Continuation</strong></p>
+                        <p>Upgrade to 8-week packages or extended programs with loyalty incentives.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>🎯 Retention Strategy</h4>
+                        <p><strong>Ongoing Care Loop</strong></p>
+                        <p>Regular check-ins, progress tracking, and continuous engagement for recurring revenue.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary -->
+            <div class="section">
+                <h2>Journey Summary</h2>
+                <p>The WeGo patient journey is designed to provide exceptional care while maximizing revenue opportunities at strategic touchpoints. The dual-track approach ensures clinical excellence is maintained alongside business growth objectives.</p>
+                
+                <div class="key-highlights">
+                    <div class="highlight-card">
+                        <h4>Patient Experience</h4>
+                        <p>Seamless journey from online registration to rapid medication delivery (60-90 min), with personalized care and ongoing support.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>Clinical Quality</h4>
+                        <p>Professional consultations via Videomed, blood work through Lancet, and doctor-led care with regular follow-ups.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>Business Model</h4>
+                        <p>Multiple revenue streams: R750 consultations, package sales, follow-up billing, dosage upsells, and aesthetic services via Body Lab.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 WeGo System | Patient Journey Dual-Track Flow</p>
+            <p>Version 1.0 - Standalone Interactive Edition</p>
+        </footer>
+    </div>
+
+    <script>
+        // Initialize Mermaid
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis',
+                padding: 20
+            }
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
