@@ -21,7 +21,7 @@
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
             background: white;
             border-radius: 15px;
@@ -203,6 +203,71 @@
             text-align: center;
         }
 
+        /* Patient Journey Specific Styles */
+        .intro {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            border-left: 5px solid #2E75B5;
+        }
+
+        .legend-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .legend-color {
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+            margin-right: 12px;
+            border: 2px solid #333;
+        }
+
+        .clinical-color { background: #E3F2FD; border-color: #2196F3; }
+        .business-color { background: #E8F5E9; border-color: #4CAF50; }
+        .decision-color { background: #FFF3E0; border-color: #FF9800; }
+        .upsell-color { background: #F3E5F5; border-color: #9C27B0; }
+        .behind-color { background: #FAFAFA; border-color: #9E9E9E; }
+
+        .price-tag {
+            background: #4CAF50;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-weight: bold;
+            display: inline-block;
+            margin: 5px;
+        }
+
+        .key-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .highlight-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .highlight-card h4 {
+            color: #1F4E78;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .highlight-card p {
+            color: #555;
+            font-size: 0.95em;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             header h1 {
@@ -216,6 +281,11 @@
             nav ul {
                 flex-direction: column;
                 align-items: center;
+            }
+
+            .legend-grid,
+            .key-highlights {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -239,13 +309,14 @@
     <div class="container">
         <header>
             <h1>WeGo System</h1>
-            <h2>Data Flow Diagrams</h2>
-            <p>Comprehensive Visual Documentation - Version 1.0</p>
+            <h2>Data Flow Diagrams & Patient Journey</h2>
+            <p>Comprehensive Visual Documentation - Version 2.0</p>
         </header>
 
         <nav>
             <ul>
                 <li><a href="#intro">Introduction</a></li>
+                <li><a href="#patient-journey">Patient Journey</a></li>
                 <li><a href="#context">Context Diagram</a></li>
                 <li><a href="#level1">Level 1 DFD</a></li>
                 <li><a href="#authentication">Authentication</a></li>
@@ -259,7 +330,7 @@
             <!-- Introduction Section -->
             <section id="intro" class="section">
                 <h2>1. Introduction</h2>
-                <p>This document presents interactive Data Flow Diagrams (DFDs) for the WeGo weight loss management system. The diagrams illustrate how data moves through the system from patient registration through clinical assessment, payment processing, and ongoing weight management tracking.</p>
+                <p>This document presents interactive Data Flow Diagrams (DFDs) and the complete patient journey for the WeGo weight loss management system. The diagrams illustrate how data moves through the system from patient registration through clinical assessment, payment processing, and ongoing weight management tracking.</p>
 
                 <div class="legend">
                     <h4>DFD Notation Guide</h4>
@@ -294,9 +365,359 @@
                 </div>
             </section>
 
+            <!-- PATIENT JOURNEY SECTION -->
+            <section id="patient-journey" class="section">
+                <h2>2. Complete Patient Journey - Dual Track Flow</h2>
+                
+                <div class="intro">
+                    <h3>Overview</h3>
+                    <p>This comprehensive patient journey map shows the complete WeGo experience from initial registration through ongoing weight management. The dual-track visualization displays both the clinical care pathway and corresponding business revenue opportunities.</p>
+                    <p><strong>Key Features:</strong> Virtual consultations via Videomed, rapid medication delivery (60-90 minutes), personalized care with follow-up support, and strategic upsell opportunities at Body Lab.</p>
+                </div>
+
+                <!-- Journey Legend -->
+                <div class="legend">
+                    <h4>Journey Map Legend</h4>
+                    <div class="legend-grid">
+                        <div class="legend-item">
+                            <div class="legend-color clinical-color"></div>
+                            <div><strong>Clinical Steps</strong><br>Patient-facing care processes</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color business-color"></div>
+                            <div><strong>Business Steps</strong><br>Revenue & conversion points</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color decision-color"></div>
+                            <div><strong>Decision Points</strong><br>Patient suitability & choices</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color upsell-color"></div>
+                            <div><strong>Upsell Opportunities</strong><br>Package & service upgrades</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color behind-color"></div>
+                            <div><strong>Behind-the-Scenes</strong><br>Internal operational steps</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pricing Overview -->
+                <h3>2.1 Pricing Structure</h3>
+                <div class="key-highlights">
+                    <div class="highlight-card">
+                        <h4>Initial Consultation</h4>
+                        <p><span class="price-tag">R750</span></p>
+                        <p>Includes: Virtual or in-person consultation + Blood work (Lancet) + Eligibility assessment</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>4-Week Package</h4>
+                        <p><span class="price-tag">Price on Consultation</span></p>
+                        <p>Includes: 4 weeks medication + First injection support + Progress tracking</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>8-Week Package</h4>
+                        <p><span class="price-tag">Price on Consultation</span></p>
+                        <p>Includes: 8 weeks medication + Follow-up consultation + Dosage management</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>Follow-up Consultations</h4>
+                        <p><span class="price-tag">R899-950</span></p>
+                        <p>Includes: Two virtual consultations + Dosage review + Package continuation guidance</p>
+                    </div>
+                </div>
+
+                <!-- Journey Diagram -->
+                <h3>2.2 Complete Journey Visualization</h3>
+                <div class="diagram-container">
+                    <div class="mermaid">
+graph TB
+    Start([Patient Starts Journey])
+    
+    subgraph Clinical["CLINICAL TRACK - Patient Experience"]
+        C1[Registration & Account Creation]
+        C2[Clinical Form Completion<br/>Exclusion Criteria Upfront]
+        C3{Passes Initial<br/>Screening?}
+        C4[Payment: R750<br/>Consultation + Blood Work]
+        C5[Blood Work Sent to Lancet<br/>included in R750]
+        C6[Virtual Receptionist Books<br/>Consultation via Carelink]
+        C7[Virtual Consultation via Videomed<br/>or In-Person at Medirite Sites]
+        C8[Patient Care & Wellness<br/>Counseling Session]
+        C9{Doctor Determines<br/>Suitable for GLP-1?}
+        C10[eScript Sent to<br/>Pharmacy Center<br/>via Videomed]
+        C11[Pharmacy Center<br/>Dispenses Medication]
+        C12[Delivery via Delmed + Uber<br/>or Takealot Now<br/>60-90 minutes]
+        C13[Body Lab Contact<br/>Patient Support & Services]
+        C14[First Injection /<br/>Medication Start]
+        C15[Dashboard Access<br/>Track Progress]
+        C16[Log Weight & Injections]
+        C17{4-Week or<br/>8-Week<br/>Follow-up?}
+        C18[Follow-up Virtual<br/>Consultation]
+        C19[Dosage Review &<br/>Progress Assessment]
+        C20{Continue<br/>Package?}
+        C21[Package Continuation]
+        C22[Ongoing Care Loop]
+        
+        Rejected1([Not Eligible<br/>Refund/Alternative Options])
+        Rejected2([Not Suitable After Consult<br/>Consultation Fee Retained])
+        End1([Patient Discontinues])
+    end
+    
+    subgraph Business["BUSINESS TRACK - Revenue Streams"]
+        B1[Lead Capture]
+        B2[Qualification Filter]
+        B3[Revenue: R750<br/>Consultation Fee]
+        B4[Blood Work Cost<br/>Subsidized]
+        B5[Doctor Consultation<br/>Revenue Split]
+        B6{Package<br/>Selection}
+        B7[4-Week Package Sale<br/>Pricing TBD]
+        B8[8-Week Package Sale<br/>Pricing TBD]
+        B9[Medication Dispensing<br/>Revenue]
+        B10[Body Lab Upsell<br/>Aesthetic Services]
+        B11[Follow-up Billing<br/>R899-950 for 2 Consults]
+        B12{Dosage<br/>Increase?}
+        B13[Higher Dosage Upsell<br/>Premium Pricing]
+        B14{Package<br/>Upgrade?}
+        B15[Extended Package Sale<br/>8-Week or Longer]
+        B16[Recurring Revenue<br/>Loyalty Program]
+    end
+    
+    Start --> C1
+    C1 --> C2
+    C2 --> C3
+    
+    C3 -->|Yes| C4
+    C3 -->|No| Rejected1
+    
+    C4 --> C5
+    C5 --> C6
+    C6 --> C7
+    C7 --> C8
+    C8 --> C9
+    
+    C9 -->|Yes| C10
+    C9 -->|No| Rejected2
+    
+    C10 -.->|Behind Scenes| C11
+    C11 -.->|Behind Scenes| C12
+    C12 --> C13
+    C13 --> C14
+    C14 --> C15
+    C15 --> C16
+    C16 --> C17
+    
+    C17 -->|4-Week| C18
+    C17 -->|8-Week| C18
+    
+    C18 --> C19
+    C19 --> C20
+    
+    C20 -->|Yes| C21
+    C20 -->|No| End1
+    
+    C21 --> C22
+    C22 --> C17
+    
+    %% Business Track Connections
+    C1 -.-> B1
+    C2 -.-> B2
+    C4 -.-> B3
+    C5 -.-> B4
+    C7 -.-> B5
+    C9 -.->|If Yes| B6
+    
+    B6 -->|4-Week| B7
+    B6 -->|8-Week| B8
+    
+    B7 -.-> B9
+    B8 -.-> B9
+    
+    C13 -.-> B10
+    C18 -.-> B11
+    C19 -.-> B12
+    
+    B12 -->|Yes| B13
+    B12 -->|No| B14
+    
+    C20 -.-> B14
+    B14 -->|Yes| B15
+    B14 -->|No| B16
+    
+    B15 -.-> B16
+    B13 -.-> B16
+    
+    %% Styling
+    style Start fill:#4CAF50,stroke:#2E7D32,stroke-width:3px,color:#fff
+    style C22 fill:#4CAF50,stroke:#2E7D32,stroke-width:3px,color:#fff
+    style Rejected1 fill:#F44336,stroke:#C62828,stroke-width:2px,color:#fff
+    style Rejected2 fill:#FF9800,stroke:#E65100,stroke-width:2px,color:#fff
+    style End1 fill:#9E9E9E,stroke:#616161,stroke-width:2px,color:#fff
+    
+    style C1 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style C2 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style C4 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style C5 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style C6 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style C7 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style C8 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style C14 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style C15 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style C16 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style C18 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style C19 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style C21 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    
+    style C3 fill:#FFF3E0,stroke:#FF9800,stroke-width:3px
+    style C9 fill:#FFF3E0,stroke:#FF9800,stroke-width:3px
+    style C17 fill:#FFF3E0,stroke:#FF9800,stroke-width:3px
+    style C20 fill:#FFF3E0,stroke:#FF9800,stroke-width:3px
+    
+    style C10 fill:#FAFAFA,stroke:#9E9E9E,stroke-width:2px
+    style C11 fill:#FAFAFA,stroke:#9E9E9E,stroke-width:2px
+    style C12 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    
+    style C13 fill:#F3E5F5,stroke:#9C27B0,stroke-width:3px
+    
+    style B1 fill:#E8F5E9,stroke:#4CAF50,stroke-width:2px
+    style B2 fill:#E8F5E9,stroke:#4CAF50,stroke-width:2px
+    style B3 fill:#E8F5E9,stroke:#4CAF50,stroke-width:2px
+    style B4 fill:#E8F5E9,stroke:#4CAF50,stroke-width:2px
+    style B5 fill:#E8F5E9,stroke:#4CAF50,stroke-width:2px
+    style B6 fill:#FFF3E0,stroke:#FF9800,stroke-width:3px
+    style B7 fill:#E8F5E9,stroke:#4CAF50,stroke-width:2px
+    style B8 fill:#E8F5E9,stroke:#4CAF50,stroke-width:2px
+    style B9 fill:#E8F5E9,stroke:#4CAF50,stroke-width:2px
+    style B10 fill:#F3E5F5,stroke:#9C27B0,stroke-width:3px
+    style B11 fill:#E8F5E9,stroke:#4CAF50,stroke-width:2px
+    style B12 fill:#FFF3E0,stroke:#FF9800,stroke-width:3px
+    style B13 fill:#F3E5F5,stroke:#9C27B0,stroke-width:3px
+    style B14 fill:#FFF3E0,stroke:#FF9800,stroke-width:3px
+    style B15 fill:#F3E5F5,stroke:#9C27B0,stroke-width:3px
+    style B16 fill:#E8F5E9,stroke:#4CAF50,stroke-width:2px
+                    </div>
+                </div>
+
+                <!-- Process Details -->
+                <h3>2.3 Process Details</h3>
+
+                <div class="info-box">
+                    <h4>🔍 Initial Screening & Consultation (R750)</h4>
+                    <ul class="details">
+                        <li><strong>Registration:</strong> Patient creates account on WeGo platform</li>
+                        <li><strong>Clinical Form:</strong> Exclusion criteria checked upfront (pregnancy, breastfeeding, contraindications)</li>
+                        <li><strong>Payment:</strong> R750 covers consultation + blood work</li>
+                        <li><strong>Blood Work:</strong> Sent to Lancet (subsidized cost included in R750)</li>
+                        <li><strong>Booking:</strong> Virtual receptionist schedules via Carelink</li>
+                        <li><strong>Consultation:</strong> Virtual (Videomed) or in-person at Medirite sites</li>
+                        <li><strong>Focus:</strong> Patient care, wellness counseling, building rapport</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h4>📋 Prescription & Dispensing (Behind the Scenes)</h4>
+                    <ul class="details">
+                        <li><strong>Doctor Approval:</strong> If suitable, doctor generates eScript</li>
+                        <li><strong>Prescription Routing:</strong> eScript sent to Pharmacy Center via Videomed</li>
+                        <li><strong>Patient Communication:</strong> Doctor tells patient "Congratulations, you can start your weight management journey. Body Lab will contact you."</li>
+                        <li><strong>Note:</strong> Patient does NOT receive script directly (prevents price shopping)</li>
+                        <li><strong>Dispensing:</strong> Pharmacy Center dispenses medication</li>
+                        <li><strong>Delivery:</strong> Delmed + Uber or Takealot Now (60-90 minute delivery)</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h4>💜 Body Lab Contact - Strategic Conversion Point</h4>
+                    <ul class="details">
+                        <li><strong>Purpose:</strong> Patient support & service consultation</li>
+                        <li><strong>Primary Goal:</strong> Ensure smooth medication start, answer questions</li>
+                        <li><strong>Secondary Goal:</strong> Convert to Authentic Aesthetics customer</li>
+                        <li><strong>Upsell Opportunities:</strong> Additional aesthetic services, wellness programs</li>
+                        <li><strong>Package Selection:</strong> Guide patient to 4-week or 8-week package</li>
+                        <li><strong>Approach:</strong> Diplomatic, care-focused, building long-term relationship</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h4>📊 Follow-up & Continuation Strategy</h4>
+                    <ul class="details">
+                        <li><strong>4-Week Check-in:</strong> Virtual consultation to assess progress, side effects, weight loss</li>
+                        <li><strong>8-Week Check-in:</strong> Extended assessment for longer-term patients</li>
+                        <li><strong>Follow-up Pricing:</strong> R899-950 for package covering two consultations</li>
+                        <li><strong>Dosage Review:</strong> Doctor evaluates need for dosage increase (upsell opportunity)</li>
+                        <li><strong>Package Upgrade:</strong> Transition from 4-week to 8-week packages</li>
+                        <li><strong>Doctor Preference:</strong> Same doctor for continuity (when possible)</li>
+                        <li><strong>Loyalty Program:</strong> Discounts and incentives for continued engagement</li>
+                    </ul>
+                </div>
+
+                <!-- Technology Stack -->
+                <h3>2.4 Technology & Service Providers</h3>
+                <div class="key-highlights">
+                    <div class="highlight-card">
+                        <h4>Videomed</h4>
+                        <p>Virtual consultation platform for doctor-patient interactions. Handles eScript generation and transmission to pharmacy network.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>Carelink</h4>
+                        <p>Appointment booking system managed by virtual receptionist. Schedules consultations at Medirite sites or virtual slots.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>Lancet</h4>
+                        <p>Blood work laboratory services. Processes all patient blood tests included in R750 consultation fee.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>Pharmacy Center</h4>
+                        <p>Receives eScripts via Videomed, dispenses GLP-1 medications, coordinates delivery logistics.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>Delmed + Uber / Takealot Now</h4>
+                        <p>Medication delivery services providing 60-90 minute delivery to patients.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>Body Lab (Authentic Aesthetics)</h4>
+                        <p>Patient support team that manages post-consultation engagement, package selection, and aesthetic service upsells.</p>
+                    </div>
+                </div>
+
+                <!-- Revenue Optimization -->
+                <h3>2.5 Revenue Optimization Points</h3>
+                <div class="key-highlights">
+                    <div class="highlight-card">
+                        <h4>🎯 Conversion Point 1</h4>
+                        <p><strong>Clinical Form → Consultation Payment</strong></p>
+                        <p>Qualify leads early with exclusion criteria to maximize R750 conversion rate.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>🎯 Conversion Point 2</h4>
+                        <p><strong>Consultation → Package Selection</strong></p>
+                        <p>Doctor builds rapport and recommends appropriate package (4-week vs 8-week).</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>🎯 Upsell Point 1</h4>
+                        <p><strong>Body Lab Contact</strong></p>
+                        <p>Strategic conversion to Authentic Aesthetics services while supporting medication start.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>🎯 Upsell Point 2</h4>
+                        <p><strong>4-Week Follow-up</strong></p>
+                        <p>Dosage increase recommendations based on progress (higher revenue tier).</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>🎯 Upsell Point 3</h4>
+                        <p><strong>Package Continuation</strong></p>
+                        <p>Upgrade to 8-week packages or extended programs with loyalty incentives.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>🎯 Retention Strategy</h4>
+                        <p><strong>Ongoing Care Loop</strong></p>
+                        <p>Regular check-ins, progress tracking, and continuous engagement for recurring revenue.</p>
+                    </div>
+                </div>
+            </section>
+
             <!-- Context Diagram -->
             <section id="context" class="section">
-                <h2>2. Context Diagram (Level 0)</h2>
+                <h2>3. Context Diagram (Level 0)</h2>
                 <p>The context diagram shows the WeGo system as a single process with all external entities that interact with it.</p>
 
                 <div class="diagram-container">
@@ -364,7 +785,7 @@ graph TB
 
             <!-- Level 1 DFD -->
             <section id="level1" class="section">
-                <h2>3. Level 1 DFD - Main System Processes</h2>
+                <h2>4. Level 1 DFD - Main System Processes</h2>
                 <p>This diagram breaks down the WeGo system into its main functional processes and data stores.</p>
 
                 <div class="diagram-container">
@@ -463,7 +884,7 @@ graph TB
 
             <!-- Authentication Detail -->
             <section id="authentication" class="section">
-                <h2>4. Process 1.0: User Authentication (Detailed)</h2>
+                <h2>5. Process 1.0: User Authentication (Detailed)</h2>
                 <p>Detailed breakdown of the authentication process including registration, login, and social authentication flows.</p>
 
                 <div class="diagram-container">
@@ -541,7 +962,7 @@ graph TB
 
             <!-- Clinical Assessment Detail -->
             <section id="clinical" class="section">
-                <h2>5. Process 2.0: Clinical Assessment (Detailed)</h2>
+                <h2>6. Process 2.0: Clinical Assessment (Detailed)</h2>
                 <p>Detailed breakdown of the clinical form submission, validation, and eligibility determination process.</p>
 
                 <div class="diagram-container">
@@ -611,14 +1032,11 @@ graph TB
                         <li>Specific contraindicated medical conditions</li>
                     </ul>
                 </div>
-
-                <h3>BMI Calculation</h3>
-                <p>BMI = Weight (kg) / [Height (m)]² - automatically categorizes as underweight, normal, overweight, or obese</p>
             </section>
 
             <!-- Payment Processing Detail -->
             <section id="payment" class="section">
-                <h2>6. Process 3.0: Payment Processing (Detailed)</h2>
+                <h2>7. Process 3.0: Payment Processing (Detailed)</h2>
                 <p>Detailed breakdown of payment processing including voucher validation, PayFast integration, and document generation triggering.</p>
 
                 <div class="diagram-container">
@@ -708,7 +1126,7 @@ graph TB
 
             <!-- Dashboard Detail -->
             <section id="dashboard" class="section">
-                <h2>7. Process 5.0: Dashboard & Progress Tracking (Detailed)</h2>
+                <h2>8. Process 5.0: Dashboard & Progress Tracking (Detailed)</h2>
                 <p>Detailed breakdown of dashboard data retrieval, metrics calculation, and progress tracking functionality.</p>
 
                 <div class="diagram-container">
@@ -798,121 +1216,20 @@ graph TB
                         <li><strong>Progress Percentage:</strong> (Weight Lost / Total to Lose) × 100</li>
                     </ul>
                 </div>
-
-                <h3>Track Progress Features</h3>
-                <ul class="details">
-                    <li>Weight entry form with date and notes</li>
-                    <li>Injection logging with date, site, and dosage</li>
-                    <li>Visual progress charts (line graphs, bar charts)</li>
-                    <li>Historical data table view</li>
-                    <li>Milestone achievements and badges</li>
-                </ul>
-            </section>
-
-            <!-- Complete Patient Journey -->
-            <section id="journey" class="section">
-                <h2>8. Complete Patient Journey Flow</h2>
-                <p>End-to-end data flow showing the complete patient journey from registration to ongoing tracking.</p>
-
-                <div class="diagram-container">
-                    <div class="mermaid">
-graph LR
-    Start([Patient Starts])
-    
-    subgraph Registration
-        Reg[Register Account]
-        Verify[Verify Email]
-        Login[Login]
-    end
-    
-    subgraph Assessment
-        Form[Complete Clinical Form]
-        BMI[BMI Calculated]
-        Elig{Eligible?}
-    end
-    
-    subgraph Payment
-        Pay[Make Payment]
-        PayFast[PayFast Processing]
-        Success{Success?}
-    end
-    
-    subgraph Documents
-        GenDoc[Generate PDFs]
-        SendEmail[Email to Patient]
-    end
-    
-    subgraph Tracking
-        Dashboard[Access Dashboard]
-        LogWeight[Log Weight]
-        LogInject[Log Injections]
-        ViewProgress[View Progress]
-    end
-    
-    Rejected([Not Eligible<br/>Consultation Needed])
-    PayFail([Payment Failed<br/>Retry/Support])
-    Ongoing([Ongoing<br/>Tracking])
-    
-    Start --> Reg
-    Reg --> Verify
-    Verify --> Login
-    Login --> Form
-    Form --> BMI
-    BMI --> Elig
-    
-    Elig -->|Yes| Pay
-    Elig -->|No| Rejected
-    
-    Pay --> PayFast
-    PayFast --> Success
-    
-    Success -->|Yes| GenDoc
-    Success -->|No| PayFail
-    
-    GenDoc --> SendEmail
-    SendEmail --> Dashboard
-    
-    Dashboard --> LogWeight
-    Dashboard --> LogInject
-    Dashboard --> ViewProgress
-    
-    LogWeight --> Ongoing
-    LogInject --> Ongoing
-    ViewProgress --> Ongoing
-    
-    style Start fill:#4CAF50,stroke:#2E7D32,stroke-width:3px,color:#fff
-    style Ongoing fill:#4CAF50,stroke:#2E7D32,stroke-width:3px,color:#fff
-    style Rejected fill:#F44336,stroke:#C62828,stroke-width:2px,color:#fff
-    style PayFail fill:#FF9800,stroke:#E65100,stroke-width:2px,color:#fff
-    
-    style Reg fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
-    style Verify fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
-    style Login fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
-    style Form fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
-    style BMI fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
-    style Pay fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
-    style PayFast fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
-    style GenDoc fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
-    style SendEmail fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
-    style Dashboard fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
-    style LogWeight fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
-    style LogInject fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
-    style ViewProgress fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
-                    </div>
-                </div>
             </section>
 
             <!-- Summary -->
             <section id="summary" class="section">
                 <h2>9. Summary</h2>
-                <p>These interactive Data Flow Diagrams provide a comprehensive visual representation of the WeGo system's data architecture. Key highlights include:</p>
+                <p>These interactive Data Flow Diagrams and the comprehensive patient journey map provide a complete visual representation of the WeGo system's data architecture and patient experience. Key highlights include:</p>
                 
                 <ul class="details">
+                    <li><strong>Complete Patient Journey:</strong> Dual-track visualization showing clinical care and business revenue streams</li>
                     <li><strong>7 External Entities:</strong> Patient, Administrator, PayFast, Email System, Google OAuth, Facebook OAuth, and Carepon</li>
                     <li><strong>6 Main Processes:</strong> Authentication, Clinical Assessment, Payment Processing, Document Management, Dashboard & Progress Tracking, and Admin Management</li>
                     <li><strong>7 Data Stores:</strong> User Database, Clinical Forms, Payment Records, Weight Tracking, Injection Log, Session Store, and Document Storage</li>
-                    <li><strong>Complete Data Flows:</strong> From patient registration through ongoing weight management tracking</li>
-                    <li><strong>Error Handling:</strong> Proper flows for duplicate forms, payment failures, and eligibility rejections</li>
+                    <li><strong>Technology Integration:</strong> Videomed, Carelink, Lancet, Pharmacy Center, delivery services, and Body Lab</li>
+                    <li><strong>Revenue Optimization:</strong> Strategic upsell points throughout the patient journey</li>
                 </ul>
 
                 <div class="info-box">
@@ -925,23 +1242,12 @@ graph LR
                         <li>PCI DSS compliance for payment processing via PayFast</li>
                     </ul>
                 </div>
-
-                <div class="info-box">
-                    <h4>Future Enhancements</h4>
-                    <ul class="details">
-                        <li>WhatsApp Business API integration for notifications</li>
-                        <li>MoMo (Mobicred) payment option</li>
-                        <li>Advanced analytics and reporting</li>
-                        <li>Mobile application (iOS/Android)</li>
-                        <li>AI-powered personalized recommendations</li>
-                    </ul>
-                </div>
             </section>
         </div>
 
         <footer>
-            <p>&copy; 2025 WeGo System | Data Flow Diagrams Documentation</p>
-            <p>Version 1.0 - Interactive HTML Edition</p>
+            <p>&copy; 2025 WeGo System | Data Flow Diagrams & Patient Journey Documentation</p>
+            <p>Version 2.0 - Complete Interactive Edition</p>
         </footer>
     </div>
 
@@ -965,11 +1271,6 @@ graph LR
                 target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
         });
-
-        // Print functionality
-        function printDiagrams() {
-            window.print();
-        }
     </script>
 </body>
 </html>
