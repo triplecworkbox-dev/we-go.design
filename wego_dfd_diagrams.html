@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeGo System - Data Flow Diagrams</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1F4E78 0%, #2E75B5 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        nav {
+            background: #f8f9fa;
+            padding: 15px 40px;
+            border-bottom: 3px solid #1F4E78;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        nav a {
+            color: #1F4E78;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background: #1F4E78;
+            color: white;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+            scroll-margin-top: 80px;
+        }
+
+        .section h2 {
+            color: #1F4E78;
+            font-size: 2em;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #2E75B5;
+        }
+
+        .section h3 {
+            color: #2E75B5;
+            font-size: 1.5em;
+            margin: 30px 0 15px 0;
+        }
+
+        .section p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .diagram-container {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border: 2px solid #e0e0e0;
+            overflow-x: auto;
+        }
+
+        .legend {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #2E75B5;
+        }
+
+        .legend h4 {
+            color: #1F4E78;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+
+        .legend-symbol {
+            width: 60px;
+            height: 40px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .external-entity {
+            background: #FFE5E5;
+            border: 2px solid #FF6B6B;
+            border-radius: 5px;
+        }
+
+        .process {
+            background: #E3F2FD;
+            border: 2px solid #2196F3;
+            border-radius: 50%;
+        }
+
+        .datastore {
+            background: #F1F8E9;
+            border: 2px solid #8BC34A;
+            border-left: 6px solid #8BC34A;
+        }
+
+        .info-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .info-box h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        ul.details {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        ul.details li {
+            margin: 8px 0;
+            color: #555;
+        }
+
+        footer {
+            background: #1F4E78;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        .mermaid {
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+            }
+            
+            .container {
+                box-shadow: none;
+            }
+            
+            nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>WeGo System</h1>
+            <h2>Data Flow Diagrams</h2>
+            <p>Comprehensive Visual Documentation - Version 1.0</p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="#intro">Introduction</a></li>
+                <li><a href="#context">Context Diagram</a></li>
+                <li><a href="#level1">Level 1 DFD</a></li>
+                <li><a href="#authentication">Authentication</a></li>
+                <li><a href="#clinical">Clinical Assessment</a></li>
+                <li><a href="#payment">Payment</a></li>
+                <li><a href="#dashboard">Dashboard</a></li>
+            </ul>
+        </nav>
+
+        <div class="content">
+            <!-- Introduction Section -->
+            <section id="intro" class="section">
+                <h2>1. Introduction</h2>
+                <p>This document presents interactive Data Flow Diagrams (DFDs) for the WeGo weight loss management system. The diagrams illustrate how data moves through the system from patient registration through clinical assessment, payment processing, and ongoing weight management tracking.</p>
+
+                <div class="legend">
+                    <h4>DFD Notation Guide</h4>
+                    <div class="legend-item">
+                        <div class="legend-symbol external-entity">Entity</div>
+                        <div>
+                            <strong>External Entities (Rectangles)</strong><br>
+                            People or systems outside the WeGo application (e.g., Patient, PayFast)
+                        </div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-symbol process">Process</div>
+                        <div>
+                            <strong>Processes (Circles)</strong><br>
+                            Activities that transform data (e.g., Validate Credentials, Calculate BMI)
+                        </div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-symbol datastore">D1</div>
+                        <div>
+                            <strong>Data Stores (Parallel Lines)</strong><br>
+                            Repositories where data is stored (e.g., User Database, Clinical Forms)
+                        </div>
+                    </div>
+                    <div class="legend-item">
+                        <div style="margin-right: 15px;">→</div>
+                        <div>
+                            <strong>Data Flows (Arrows)</strong><br>
+                            Movement of data between entities, processes, and data stores
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Context Diagram -->
+            <section id="context" class="section">
+                <h2>2. Context Diagram (Level 0)</h2>
+                <p>The context diagram shows the WeGo system as a single process with all external entities that interact with it.</p>
+
+                <div class="diagram-container">
+                    <div class="mermaid">
+graph TB
+    Patient[Patient<br/>External Entity]
+    Admin[Administrator<br/>External Entity]
+    PayFast[PayFast<br/>Payment Gateway]
+    Email[Email System]
+    Google[Google OAuth]
+    Facebook[Facebook OAuth]
+    Carepon[Carepon<br/>Voucher System]
+    
+    WeGo((WeGo<br/>System))
+    
+    Patient -->|Registration Data| WeGo
+    Patient -->|Login Credentials| WeGo
+    Patient -->|Clinical Form Data| WeGo
+    Patient -->|Payment Info| WeGo
+    Patient -->|Voucher Codes| WeGo
+    Patient -->|Weight Updates| WeGo
+    
+    WeGo -->|Account Confirmation| Patient
+    WeGo -->|Session Token| Patient
+    WeGo -->|Eligibility Status| Patient
+    WeGo -->|Dashboard Data| Patient
+    WeGo -->|Invoice PDF| Patient
+    WeGo -->|Clinical Form PDF| Patient
+    
+    WeGo <-->|Payment Request/Response| PayFast
+    WeGo -->|Verification Emails| Email
+    WeGo -->|Invoices & PDFs| Email
+    
+    WeGo <-->|OAuth Token Exchange| Google
+    WeGo <-->|OAuth Token Exchange| Facebook
+    WeGo <-->|Voucher Validation| Carepon
+    
+    Admin -->|Management Requests| WeGo
+    WeGo -->|Reports & Analytics| Admin
+    
+    style WeGo fill:#2196F3,stroke:#1565C0,stroke-width:4px,color:#fff
+    style Patient fill:#FF6B6B,stroke:#C92A2A,stroke-width:2px
+    style Admin fill:#FF6B6B,stroke:#C92A2A,stroke-width:2px
+    style PayFast fill:#FFB84D,stroke:#E67700,stroke-width:2px
+    style Email fill:#FFB84D,stroke:#E67700,stroke-width:2px
+    style Google fill:#FFB84D,stroke:#E67700,stroke-width:2px
+    style Facebook fill:#FFB84D,stroke:#E67700,stroke-width:2px
+    style Carepon fill:#FFB84D,stroke:#E67700,stroke-width:2px
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <h4>External Entities</h4>
+                    <ul class="details">
+                        <li><strong>Patient:</strong> Primary user who registers, completes forms, makes payments, and tracks progress</li>
+                        <li><strong>Administrator:</strong> System admin who manages users and reviews forms</li>
+                        <li><strong>PayFast:</strong> External payment gateway for processing transactions</li>
+                        <li><strong>Email System:</strong> Sends verification emails, invoices, and notifications</li>
+                        <li><strong>Google OAuth:</strong> Social authentication provider</li>
+                        <li><strong>Facebook OAuth:</strong> Social authentication provider</li>
+                        <li><strong>Carepon System:</strong> Voucher validation and redemption system</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Level 1 DFD -->
+            <section id="level1" class="section">
+                <h2>3. Level 1 DFD - Main System Processes</h2>
+                <p>This diagram breaks down the WeGo system into its main functional processes and data stores.</p>
+
+                <div class="diagram-container">
+                    <div class="mermaid">
+graph TB
+    Patient[Patient]
+    Admin[Administrator]
+    PayFast[PayFast]
+    Email[Email System]
+    
+    P1((1.0<br/>User<br/>Authentication))
+    P2((2.0<br/>Clinical<br/>Assessment))
+    P3((3.0<br/>Payment<br/>Processing))
+    P4((4.0<br/>Document<br/>Management))
+    P5((5.0<br/>Dashboard &<br/>Progress Tracking))
+    P6((6.0<br/>Admin<br/>Management))
+    
+    D1[(D1: User<br/>Database)]
+    D2[(D2: Clinical Forms<br/>Database)]
+    D3[(D3: Payment<br/>Records)]
+    D4[(D4: Weight<br/>Tracking)]
+    D5[(D5: Injection<br/>Log)]
+    D6[(D6: Session<br/>Store)]
+    D7[(D7: Document<br/>Storage)]
+    
+    Patient -->|Registration/Login| P1
+    P1 -->|Account Confirmation| Patient
+    P1 <-->|User Data| D1
+    P1 -->|Session Token| D6
+    P1 -->|Verification Email| Email
+    
+    Patient -->|Clinical Form Data| P2
+    P2 -->|Eligibility Status| Patient
+    P2 <-->|Form Data| D2
+    P2 -->|Photos| D7
+    
+    Patient -->|Payment Request| P3
+    P3 <-->|Payment Processing| PayFast
+    P3 -->|Payment Record| D3
+    P3 -->|Success/Failure| Patient
+    P3 -->|Trigger Generate| P4
+    
+    P4 -->|Invoices & Forms| Email
+    P4 -->|PDFs| D7
+    P4 -.->|Read User Data| D1
+    P4 -.->|Read Form Data| D2
+    P4 -.->|Read Payment| D3
+    
+    Patient -->|Dashboard Request| P5
+    P5 -->|Dashboard View| Patient
+    P5 <-->|User Profile| D1
+    P5 -.->|Form Info| D2
+    P5 <-->|Weight Data| D4
+    P5 <-->|Injection Data| D5
+    
+    Admin -->|Management| P6
+    P6 -->|Reports| Admin
+    P6 -.->|All Data Stores| D1
+    P6 -.->|Read Access| D2
+    P6 -.->|Read Access| D3
+    
+    style P1 fill:#2196F3,stroke:#1565C0,stroke-width:3px,color:#fff
+    style P2 fill:#2196F3,stroke:#1565C0,stroke-width:3px,color:#fff
+    style P3 fill:#2196F3,stroke:#1565C0,stroke-width:3px,color:#fff
+    style P4 fill:#2196F3,stroke:#1565C0,stroke-width:3px,color:#fff
+    style P5 fill:#2196F3,stroke:#1565C0,stroke-width:3px,color:#fff
+    style P6 fill:#2196F3,stroke:#1565C0,stroke-width:3px,color:#fff
+    
+    style D1 fill:#8BC34A,stroke:#558B2F,stroke-width:2px
+    style D2 fill:#8BC34A,stroke:#558B2F,stroke-width:2px
+    style D3 fill:#8BC34A,stroke:#558B2F,stroke-width:2px
+    style D4 fill:#8BC34A,stroke:#558B2F,stroke-width:2px
+    style D5 fill:#8BC34A,stroke:#558B2F,stroke-width:2px
+    style D6 fill:#8BC34A,stroke:#558B2F,stroke-width:2px
+    style D7 fill:#8BC34A,stroke:#558B2F,stroke-width:2px
+    
+    style Patient fill:#FF6B6B,stroke:#C92A2A,stroke-width:2px
+    style Admin fill:#FF6B6B,stroke:#C92A2A,stroke-width:2px
+    style PayFast fill:#FFB84D,stroke:#E67700,stroke-width:2px
+    style Email fill:#FFB84D,stroke:#E67700,stroke-width:2px
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <h4>Main Processes Overview</h4>
+                    <ul class="details">
+                        <li><strong>Process 1.0:</strong> User Authentication - Handles registration, login, and social authentication</li>
+                        <li><strong>Process 2.0:</strong> Clinical Assessment - Manages form submission, validation, and eligibility</li>
+                        <li><strong>Process 3.0:</strong> Payment Processing - Handles transactions, vouchers, and invoices</li>
+                        <li><strong>Process 4.0:</strong> Document Management - Generates PDFs and manages email delivery</li>
+                        <li><strong>Process 5.0:</strong> Dashboard & Progress Tracking - Displays metrics and manages logging</li>
+                        <li><strong>Process 6.0:</strong> Admin Management - Provides administrative functions</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Authentication Detail -->
+            <section id="authentication" class="section">
+                <h2>4. Process 1.0: User Authentication (Detailed)</h2>
+                <p>Detailed breakdown of the authentication process including registration, login, and social authentication flows.</p>
+
+                <div class="diagram-container">
+                    <div class="mermaid">
+graph TB
+    Patient[Patient]
+    Google[Google OAuth]
+    Facebook[Facebook OAuth]
+    Email[Email System]
+    
+    subgraph "Process 1.0: User Authentication"
+        P11((1.1<br/>Validate<br/>Registration))
+        P12((1.2<br/>Hash<br/>Password))
+        P13((1.3<br/>Create<br/>Account))
+        P14((1.4<br/>Generate<br/>Verification))
+        P15((1.5<br/>Validate<br/>Login))
+        P16((1.6<br/>Create<br/>Session))
+        P17((1.7<br/>Process<br/>Social Auth))
+    end
+    
+    D1[(D1: User<br/>Database)]
+    D6[(D6: Session<br/>Store)]
+    
+    Patient -->|Registration Data| P11
+    P11 -->|Valid Data| P12
+    P11 -->|Invalid| Patient
+    P12 -->|Hashed Password| P13
+    P13 -->|User Record| D1
+    P13 -->|Trigger| P14
+    P14 -->|Verification Email| Email
+    P14 -->|Confirmation| Patient
+    
+    Patient -->|Login Credentials| P15
+    P15 <-->|Verify| D1
+    P15 -->|Valid| P16
+    P15 -->|Invalid| Patient
+    P16 -->|Session Token| D6
+    P16 -->|Token| Patient
+    
+    Patient -->|OAuth Request| P17
+    P17 <-->|Token Exchange| Google
+    P17 <-->|Token Exchange| Facebook
+    P17 -->|Create/Find User| D1
+    P17 -->|Session| P16
+    
+    style P11 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style P12 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style P13 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style P14 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style P15 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style P16 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style P17 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    
+    style D1 fill:#8BC34A,stroke:#558B2F,stroke-width:2px
+    style D6 fill:#8BC34A,stroke:#558B2F,stroke-width:2px
+    
+    style Patient fill:#FF6B6B,stroke:#C92A2A,stroke-width:2px
+    style Google fill:#FFB84D,stroke:#E67700,stroke-width:2px
+    style Facebook fill:#FFB84D,stroke:#E67700,stroke-width:2px
+    style Email fill:#FFB84D,stroke:#E67700,stroke-width:2px
+                    </div>
+                </div>
+
+                <h3>Sub-processes</h3>
+                <ul class="details">
+                    <li><strong>1.1 Validate Registration:</strong> Check email uniqueness, validate data format, verify required fields</li>
+                    <li><strong>1.2 Hash Password:</strong> Apply bcrypt hashing for secure password storage</li>
+                    <li><strong>1.3 Create Account:</strong> Insert user record into database with verification pending status</li>
+                    <li><strong>1.4 Generate Verification:</strong> Create verification token and send email</li>
+                    <li><strong>1.5 Validate Login:</strong> Verify credentials against stored hash</li>
+                    <li><strong>1.6 Create Session:</strong> Generate JWT token with expiry</li>
+                    <li><strong>1.7 Process Social Auth:</strong> Exchange OAuth tokens, create or find user account</li>
+                </ul>
+            </section>
+
+            <!-- Clinical Assessment Detail -->
+            <section id="clinical" class="section">
+                <h2>5. Process 2.0: Clinical Assessment (Detailed)</h2>
+                <p>Detailed breakdown of the clinical form submission, validation, and eligibility determination process.</p>
+
+                <div class="diagram-container">
+                    <div class="mermaid">
+graph TB
+    Patient[Patient]
+    
+    subgraph "Process 2.0: Clinical Assessment"
+        P21((2.1<br/>Check<br/>Existing Form))
+        P22((2.2<br/>Validate<br/>Personal Info))
+        P23((2.3<br/>Extract<br/>ID Data))
+        P24((2.4<br/>Calculate<br/>BMI))
+        P25((2.5<br/>Upload<br/>Photos))
+        P26((2.6<br/>Validate<br/>Medical))
+        P27((2.7<br/>Check<br/>Eligibility))
+        P28((2.8<br/>Determine<br/>Status))
+        P29((2.9<br/>Store<br/>Form))
+    end
+    
+    D2[(D2: Clinical<br/>Forms Database)]
+    D7[(D7: Document<br/>Storage)]
+    
+    Patient -->|Form Data| P21
+    P21 <-->|Check| D2
+    P21 -->|No Existing| P22
+    P21 -->|Duplicate Found| Patient
+    
+    P22 -->|Valid| P23
+    P23 -->|DOB & Gender| P24
+    P24 -->|BMI Result| P25
+    P25 -->|Photos Optional| D7
+    P25 -->|Continue| P26
+    P26 -->|Medical Data| P27
+    
+    P27 -->|Pregnant/Breastfeeding?| P28
+    P27 -->|Contraindications?| P28
+    P27 -->|BMI Check| P28
+    
+    P28 -->|Eligible| P29
+    P28 -->|Not Eligible| Patient
+    P29 -->|Form Record| D2
+    P29 -->|Status & BMI| Patient
+    
+    style P21 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style P22 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style P23 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style P24 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style P25 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style P26 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style P27 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style P28 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style P29 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    
+    style D2 fill:#8BC34A,stroke:#558B2F,stroke-width:2px
+    style D7 fill:#8BC34A,stroke:#558B2F,stroke-width:2px
+    style Patient fill:#FF6B6B,stroke:#C92A2A,stroke-width:2px
+                    </div>
+                </div>
+
+                <h3>Eligibility Criteria</h3>
+                <div class="info-box">
+                    <h4>Automatic Rejection Conditions</h4>
+                    <ul class="details">
+                        <li>Currently pregnant</li>
+                        <li>Currently breastfeeding</li>
+                        <li>BMI below minimum threshold</li>
+                        <li>Specific contraindicated medical conditions</li>
+                    </ul>
+                </div>
+
+                <h3>BMI Calculation</h3>
+                <p>BMI = Weight (kg) / [Height (m)]² - automatically categorizes as underweight, normal, overweight, or obese</p>
+            </section>
+
+            <!-- Payment Processing Detail -->
+            <section id="payment" class="section">
+                <h2>6. Process 3.0: Payment Processing (Detailed)</h2>
+                <p>Detailed breakdown of payment processing including voucher validation, PayFast integration, and document generation triggering.</p>
+
+                <div class="diagram-container">
+                    <div class="mermaid">
+graph TB
+    Patient[Patient]
+    PayFast[PayFast Gateway]
+    Carepon[Carepon System]
+    
+    subgraph "Process 3.0: Payment Processing"
+        P31((3.1<br/>Retrieve<br/>Data))
+        P32((3.2<br/>Validate<br/>Voucher))
+        P33((3.3<br/>Calculate<br/>Amount))
+        P34((3.4<br/>Create<br/>Request))
+        P35((3.5<br/>Redirect<br/>to PayFast))
+        P36((3.6<br/>Receive<br/>Notification))
+        P37((3.7<br/>Validate<br/>Payment))
+        P38((3.8<br/>Update<br/>Status))
+        P39((3.9<br/>Trigger<br/>Documents))
+        P310((3.10<br/>Handle<br/>Failure))
+    end
+    
+    D1[(D1: User DB)]
+    D2[(D2: Clinical<br/>Forms DB)]
+    D3[(D3: Payment<br/>Records)]
+    
+    P4((4.0<br/>Document<br/>Management))
+    
+    Patient -->|Initiate Payment| P31
+    Patient -->|Voucher Code| P32
+    
+    P31 <-->|User Data| D1
+    P31 <-->|Form Data| D2
+    P32 <-->|Validate| Carepon
+    P32 -->|Discount| P33
+    P33 -->|R750 - Discount| P34
+    P34 -->|Payment Request| P35
+    P35 -->|Redirect| Patient
+    P35 <-->|Process| PayFast
+    
+    PayFast -->|Notification| P36
+    P36 -->|Verify| P37
+    P37 -->|Success| P38
+    P37 -->|Failure| P310
+    
+    P38 -->|Record| D3
+    P38 -->|Trigger| P39
+    P39 -->|Initiate| P4
+    P39 -->|Confirmation| Patient
+    
+    P310 -->|Error Message| Patient
+    P310 -->|Retry Option| Patient
+    
+    style P31 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style P32 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style P33 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style P34 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style P35 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style P36 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style P37 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style P38 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style P39 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style P310 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    
+    style P4 fill:#2196F3,stroke:#1565C0,stroke-width:3px,color:#fff
+    
+    style D1 fill:#8BC34A,stroke:#558B2F,stroke-width:2px
+    style D2 fill:#8BC34A,stroke:#558B2F,stroke-width:2px
+    style D3 fill:#8BC34A,stroke:#558B2F,stroke-width:2px
+    
+    style Patient fill:#FF6B6B,stroke:#C92A2A,stroke-width:2px
+    style PayFast fill:#FFB84D,stroke:#E67700,stroke-width:2px
+    style Carepon fill:#FFB84D,stroke:#E67700,stroke-width:2px
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <h4>Payment Details</h4>
+                    <ul class="details">
+                        <li><strong>Standard Fee:</strong> R750.00 for clinical assessment</li>
+                        <li><strong>Payment Methods:</strong> Credit card, debit card via PayFast</li>
+                        <li><strong>Voucher System:</strong> Carepon integration for discount codes</li>
+                        <li><strong>Future Enhancement:</strong> MoMo (Mobicred) buy-now-pay-later option</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Dashboard Detail -->
+            <section id="dashboard" class="section">
+                <h2>7. Process 5.0: Dashboard & Progress Tracking (Detailed)</h2>
+                <p>Detailed breakdown of dashboard data retrieval, metrics calculation, and progress tracking functionality.</p>
+
+                <div class="diagram-container">
+                    <div class="mermaid">
+graph TB
+    Patient[Patient]
+    
+    subgraph "Process 5.0: Dashboard & Progress Tracking"
+        P51((5.1<br/>Retrieve<br/>User Data))
+        P52((5.2<br/>Retrieve<br/>Form Data))
+        P53((5.3<br/>Retrieve<br/>Weight History))
+        P54((5.4<br/>Retrieve<br/>Injections))
+        P55((5.5<br/>Calculate<br/>Metrics))
+        P56((5.6<br/>Generate<br/>Charts))
+        P57((5.7<br/>Process<br/>Weight Update))
+        P58((5.8<br/>Process<br/>Injection Log))
+        P59((5.9<br/>Update<br/>Profile))
+    end
+    
+    D1[(D1: User DB)]
+    D2[(D2: Clinical<br/>Forms DB)]
+    D3[(D3: Payment<br/>Records)]
+    D4[(D4: Weight<br/>Tracking)]
+    D5[(D5: Injection<br/>Log)]
+    
+    Patient -->|Dashboard Request| P51
+    Patient -->|Weight Update| P57
+    Patient -->|Injection Entry| P58
+    Patient -->|Profile Edit| P59
+    
+    P51 <-->|User Info| D1
+    P51 -->|Next| P52
+    P52 <-->|Form Info| D2
+    P52 -->|Next| P53
+    P53 <-->|Weight Data| D4
+    P53 -->|Next| P54
+    P54 <-->|Injection Data| D5
+    P54 -->|All Data| P55
+    
+    P55 -->|Current Weight| P56
+    P55 -->|Target Weight| P56
+    P55 -->|Total Loss| P56
+    P55 -->|Total Injections| P56
+    P55 -->|Progress %| P56
+    
+    P56 -->|Dashboard View| Patient
+    
+    P57 -->|New Record| D4
+    P57 -->|Confirmation| Patient
+    
+    P58 -->|New Record| D5
+    P58 -->|Confirmation| Patient
+    
+    P59 <-->|Update| D1
+    P59 -->|Confirmation| Patient
+    
+    D3 -.->|Payment History| P56
+    
+    style P51 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style P52 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style P53 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style P54 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style P55 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style P56 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style P57 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style P58 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style P59 fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    
+    style D1 fill:#8BC34A,stroke:#558B2F,stroke-width:2px
+    style D2 fill:#8BC34A,stroke:#558B2F,stroke-width:2px
+    style D3 fill:#8BC34A,stroke:#558B2F,stroke-width:2px
+    style D4 fill:#8BC34A,stroke:#558B2F,stroke-width:2px
+    style D5 fill:#8BC34A,stroke:#558B2F,stroke-width:2px
+    
+    style Patient fill:#FF6B6B,stroke:#C92A2A,stroke-width:2px
+                    </div>
+                </div>
+
+                <h3>Dashboard Metrics</h3>
+                <div class="info-box">
+                    <h4>Calculated Metrics</h4>
+                    <ul class="details">
+                        <li><strong>Current Weight:</strong> Most recent weight entry from D4</li>
+                        <li><strong>Target Weight:</strong> Goal weight from clinical form (D2)</li>
+                        <li><strong>Total Weight Loss:</strong> Initial weight - Current weight</li>
+                        <li><strong>Total Injections:</strong> Count of all records in D5</li>
+                        <li><strong>Progress Percentage:</strong> (Weight Lost / Total to Lose) × 100</li>
+                    </ul>
+                </div>
+
+                <h3>Track Progress Features</h3>
+                <ul class="details">
+                    <li>Weight entry form with date and notes</li>
+                    <li>Injection logging with date, site, and dosage</li>
+                    <li>Visual progress charts (line graphs, bar charts)</li>
+                    <li>Historical data table view</li>
+                    <li>Milestone achievements and badges</li>
+                </ul>
+            </section>
+
+            <!-- Complete Patient Journey -->
+            <section id="journey" class="section">
+                <h2>8. Complete Patient Journey Flow</h2>
+                <p>End-to-end data flow showing the complete patient journey from registration to ongoing tracking.</p>
+
+                <div class="diagram-container">
+                    <div class="mermaid">
+graph LR
+    Start([Patient Starts])
+    
+    subgraph Registration
+        Reg[Register Account]
+        Verify[Verify Email]
+        Login[Login]
+    end
+    
+    subgraph Assessment
+        Form[Complete Clinical Form]
+        BMI[BMI Calculated]
+        Elig{Eligible?}
+    end
+    
+    subgraph Payment
+        Pay[Make Payment]
+        PayFast[PayFast Processing]
+        Success{Success?}
+    end
+    
+    subgraph Documents
+        GenDoc[Generate PDFs]
+        SendEmail[Email to Patient]
+    end
+    
+    subgraph Tracking
+        Dashboard[Access Dashboard]
+        LogWeight[Log Weight]
+        LogInject[Log Injections]
+        ViewProgress[View Progress]
+    end
+    
+    Rejected([Not Eligible<br/>Consultation Needed])
+    PayFail([Payment Failed<br/>Retry/Support])
+    Ongoing([Ongoing<br/>Tracking])
+    
+    Start --> Reg
+    Reg --> Verify
+    Verify --> Login
+    Login --> Form
+    Form --> BMI
+    BMI --> Elig
+    
+    Elig -->|Yes| Pay
+    Elig -->|No| Rejected
+    
+    Pay --> PayFast
+    PayFast --> Success
+    
+    Success -->|Yes| GenDoc
+    Success -->|No| PayFail
+    
+    GenDoc --> SendEmail
+    SendEmail --> Dashboard
+    
+    Dashboard --> LogWeight
+    Dashboard --> LogInject
+    Dashboard --> ViewProgress
+    
+    LogWeight --> Ongoing
+    LogInject --> Ongoing
+    ViewProgress --> Ongoing
+    
+    style Start fill:#4CAF50,stroke:#2E7D32,stroke-width:3px,color:#fff
+    style Ongoing fill:#4CAF50,stroke:#2E7D32,stroke-width:3px,color:#fff
+    style Rejected fill:#F44336,stroke:#C62828,stroke-width:2px,color:#fff
+    style PayFail fill:#FF9800,stroke:#E65100,stroke-width:2px,color:#fff
+    
+    style Reg fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style Verify fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style Login fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style Form fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style BMI fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style Pay fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style PayFast fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style GenDoc fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style SendEmail fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style Dashboard fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style LogWeight fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style LogInject fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+    style ViewProgress fill:#E3F2FD,stroke:#2196F3,stroke-width:2px
+                    </div>
+                </div>
+            </section>
+
+            <!-- Summary -->
+            <section id="summary" class="section">
+                <h2>9. Summary</h2>
+                <p>These interactive Data Flow Diagrams provide a comprehensive visual representation of the WeGo system's data architecture. Key highlights include:</p>
+                
+                <ul class="details">
+                    <li><strong>7 External Entities:</strong> Patient, Administrator, PayFast, Email System, Google OAuth, Facebook OAuth, and Carepon</li>
+                    <li><strong>6 Main Processes:</strong> Authentication, Clinical Assessment, Payment Processing, Document Management, Dashboard & Progress Tracking, and Admin Management</li>
+                    <li><strong>7 Data Stores:</strong> User Database, Clinical Forms, Payment Records, Weight Tracking, Injection Log, Session Store, and Document Storage</li>
+                    <li><strong>Complete Data Flows:</strong> From patient registration through ongoing weight management tracking</li>
+                    <li><strong>Error Handling:</strong> Proper flows for duplicate forms, payment failures, and eligibility rejections</li>
+                </ul>
+
+                <div class="info-box">
+                    <h4>Security & Compliance</h4>
+                    <ul class="details">
+                        <li>All patient data flows encrypted via HTTPS</li>
+                        <li>Passwords hashed using bcrypt before storage</li>
+                        <li>Session tokens with automatic expiry</li>
+                        <li>POPIA compliance for medical data in D2</li>
+                        <li>PCI DSS compliance for payment processing via PayFast</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h4>Future Enhancements</h4>
+                    <ul class="details">
+                        <li>WhatsApp Business API integration for notifications</li>
+                        <li>MoMo (Mobicred) payment option</li>
+                        <li>Advanced analytics and reporting</li>
+                        <li>Mobile application (iOS/Android)</li>
+                        <li>AI-powered personalized recommendations</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 WeGo System | Data Flow Diagrams Documentation</p>
+            <p>Version 1.0 - Interactive HTML Edition</p>
+        </footer>
+    </div>
+
+    <script>
+        // Initialize Mermaid
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        // Print functionality
+        function printDiagrams() {
+            window.print();
+        }
+    </script>
+</body>
+</html>
