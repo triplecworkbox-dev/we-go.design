@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeGo Marketing Investment - One Pager</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        body {
+            font-family: 'Arial', 'Helvetica', sans-serif;
+            background: white;
+            color: #000;
+            line-height: 1.4;
+        }
+
+        .page {
+            width: 210mm;
+            height: 297mm;
+            margin: 0 auto;
+            background: white;
+            padding: 15mm;
+            box-sizing: border-box;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #000;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+
+        .header h1 {
+            font-size: 28pt;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            margin-bottom: 4px;
+        }
+
+        .header .subtitle {
+            font-size: 14pt;
+            font-weight: 400;
+            margin-bottom: 8px;
+        }
+
+        .header .ask {
+            font-size: 32pt;
+            font-weight: 900;
+            margin: 6px 0;
+            letter-spacing: -1px;
+        }
+
+        .header .tagline {
+            font-size: 11pt;
+            font-weight: 600;
+        }
+
+        .section {
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: 13pt;
+            font-weight: 900;
+            text-transform: uppercase;
+            border-bottom: 2px solid #000;
+            padding-bottom: 3px;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .box {
+            border: 2px solid #000;
+            padding: 10px;
+            background: #fff;
+        }
+
+        .box h3 {
+            font-size: 11pt;
+            font-weight: 900;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .box .big-number {
+            font-size: 26pt;
+            font-weight: 900;
+            line-height: 1;
+            margin: 4px 0;
+        }
+
+        .box .label {
+            font-size: 9pt;
+            font-weight: 600;
+        }
+
+        .box ul {
+            list-style: none;
+            font-size: 9pt;
+            line-height: 1.5;
+        }
+
+        .box ul li::before {
+            content: "▪ ";
+            font-weight: 900;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 9pt;
+            margin: 6px 0;
+        }
+
+        table th {
+            background: #000;
+            color: #fff;
+            padding: 6px 8px;
+            text-align: left;
+            font-weight: 900;
+            font-size: 9pt;
+            text-transform: uppercase;
+        }
+
+        table td {
+            padding: 5px 8px;
+            border: 1px solid #000;
+        }
+
+        table tr:nth-child(even) {
+            background: #f0f0f0;
+        }
+
+        .highlight-row {
+            background: #e0e0e0 !important;
+            font-weight: 900;
+        }
+
+        .timeline {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+            margin: 6px 0;
+        }
+
+        .timeline-item {
+            border: 2px solid #000;
+            padding: 8px 6px;
+            text-align: center;
+        }
+
+        .timeline-item .week {
+            font-size: 8pt;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .timeline-item .target {
+            font-size: 14pt;
+            font-weight: 900;
+            margin: 3px 0;
+        }
+
+        .timeline-item .desc {
+            font-size: 7pt;
+            line-height: 1.3;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin: 6px 0;
+        }
+
+        .metric {
+            text-align: center;
+            border: 2px solid #000;
+            padding: 8px;
+        }
+
+        .metric .value {
+            font-size: 20pt;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        .metric .label {
+            font-size: 8pt;
+            font-weight: 600;
+            margin-top: 3px;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 15mm;
+            left: 15mm;
+            right: 15mm;
+            border-top: 3px solid #000;
+            padding-top: 8px;
+            text-align: center;
+            font-size: 9pt;
+            font-weight: 600;
+        }
+
+        .footer .decision {
+            font-size: 12pt;
+            font-weight: 900;
+            margin-bottom: 4px;
+        }
+
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            
+            .page {
+                margin: 0;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <!-- Header -->
+        <div class="header">
+            <h1>WEGO MARKETING INVESTMENT</h1>
+            <div class="subtitle">AI-Powered 90-Day Client Acquisition Campaign</div>
+            <div class="ask">R50,000</div>
+            <div class="tagline">Target: 500 Clients | ROI: 750% | Revenue: R2.5M</div>
+        </div>
+
+        <!-- Top Metrics -->
+        <div class="section">
+            <div class="metrics-grid">
+                <div class="metric">
+                    <div class="value">R48,300</div>
+                    <div class="label">TOTAL INVESTMENT</div>
+                </div>
+                <div class="metric">
+                    <div class="value">R375K</div>
+                    <div class="label">90-DAY REVENUE</div>
+                </div>
+                <div class="metric">
+                    <div class="value">R2.5M</div>
+                    <div class="label">12-MONTH LTV</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Investment Breakdown -->
+        <div class="section">
+            <div class="section-title">Investment Allocation</div>
+            <div class="two-col">
+                <div class="box">
+                    <h3>AI Creative Tools</h3>
+                    <div class="big-number">R6,300</div>
+                    <div class="label">3-month commitment</div>
+                    <ul style="margin-top: 6px;">
+                        <li>Midjourney Pro: R520/mo</li>
+                        <li>Runway Video AI: R200/mo</li>
+                        <li>ChatGPT-4 Plus: R350/mo</li>
+                        <li>Canva Pro: R280/mo</li>
+                        <li>Stock assets: R750/mo</li>
+                    </ul>
+                </div>
+                <div class="box">
+                    <h3>Paid Media Spend</h3>
+                    <div class="big-number">R42,000</div>
+                    <div class="label">3-month commitment</div>
+                    <ul style="margin-top: 6px;">
+                        <li>Meta Ads: R8,000/mo</li>
+                        <li>Google Search: R4,000/mo</li>
+                        <li>TikTok/YouTube: R2,000/mo</li>
+                        <li>Retargeting: Included</li>
+                        <li>Landing pages: Included</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cost Comparison -->
+        <div class="section">
+            <div class="section-title">AI vs Traditional Agency Cost</div>
+            <table>
+                <tr>
+                    <th>Service</th>
+                    <th>Traditional Agency</th>
+                    <th>AI-Powered</th>
+                    <th>Savings</th>
+                </tr>
+                <tr>
+                    <td><strong>Photo Production</strong></td>
+                    <td>R35,000 - R75,000</td>
+                    <td>R520/mo</td>
+                    <td><strong>R34,480</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>Video Production</strong></td>
+                    <td>R50,000 - R120,000</td>
+                    <td>R200/mo</td>
+                    <td><strong>R49,800</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>Copywriting</strong></td>
+                    <td>R15,000 - R30,000</td>
+                    <td>R350/mo</td>
+                    <td><strong>R14,650</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>Design/Editing</strong></td>
+                    <td>R20,000 - R40,000</td>
+                    <td>R280/mo</td>
+                    <td><strong>R19,720</strong></td>
+                </tr>
+                <tr class="highlight-row">
+                    <td><strong>TOTAL 3-MONTH</strong></td>
+                    <td><strong>R120K - R265K</strong></td>
+                    <td><strong>R6,300</strong></td>
+                    <td><strong>R113K - R258K</strong></td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Timeline -->
+        <div class="section">
+            <div class="section-title">90-Day Execution Timeline</div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="week">Week 1-2</div>
+                    <div class="target">30</div>
+                    <div class="desc">Setup + test ads. Generate 30 creatives. R2K test budget.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="week">Week 3-4</div>
+                    <div class="target">100</div>
+                    <div class="desc">Scale winners. 100 consults. Optimize landing.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="week">Week 5-8</div>
+                    <div class="target">250</div>
+                    <div class="desc">Expand channels. Retargeting. Google ads launch.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="week">Week 9-12</div>
+                    <div class="target">500</div>
+                    <div class="desc">Max scale. Client testimonials. Referral program.</div>
+                </div>
+                <div class="timeline-item" style="background: #e0e0e0;">
+                    <div class="week">OUTCOME</div>
+                    <div class="target">R2.5M</div>
+                    <div class="desc">500 clients. R375K consults. R2.5M packages.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Revenue Projections -->
+        <div class="section">
+            <div class="section-title">Revenue Projections (Conservative)</div>
+            <table>
+                <tr>
+                    <th>Period</th>
+                    <th>Consultations</th>
+                    <th>Consult Revenue</th>
+                    <th>Package Sales (75%)</th>
+                    <th>Total Revenue</th>
+                </tr>
+                <tr>
+                    <td>Month 1</td>
+                    <td>100</td>
+                    <td>R75,000</td>
+                    <td>R375,000</td>
+                    <td>R450,000</td>
+                </tr>
+                <tr>
+                    <td>Month 2</td>
+                    <td>200</td>
+                    <td>R150,000</td>
+                    <td>R750,000</td>
+                    <td>R900,000</td>
+                </tr>
+                <tr>
+                    <td>Month 3</td>
+                    <td>200</td>
+                    <td>R150,000</td>
+                    <td>R750,000</td>
+                    <td>R900,000</td>
+                </tr>
+                <tr class="highlight-row">
+                    <td><strong>TOTAL 90 DAYS</strong></td>
+                    <td><strong>500</strong></td>
+                    <td><strong>R375,000</strong></td>
+                    <td><strong>R1,875,000</strong></td>
+                    <td><strong>R2,250,000</strong></td>
+                </tr>
+            </table>
+            <div style="font-size: 8pt; margin-top: 4px; font-weight: 600;">
+                *Assumes: R750/consultation, 75% conversion to packages, R5,000 average package value
+            </div>
+        </div>
+
+        <!-- Key Metrics & Risk -->
+        <div class="section">
+            <div class="two-col">
+                <div class="box">
+                    <h3>Key Performance Metrics</h3>
+                    <ul>
+                        <li><strong>Target CPL:</strong> R96 per lead</li>
+                        <li><strong>Break-even:</strong> 65 consultations (R48,750)</li>
+                        <li><strong>Safety margin:</strong> 7.7× break-even</li>
+                        <li><strong>Conversion rate:</strong> 65% lead-to-consult</li>
+                        <li><strong>Client LTV:</strong> R25,000+ (12 months)</li>
+                        <li><strong>ROI (90 days):</strong> 750%</li>
+                    </ul>
+                </div>
+                <div class="box">
+                    <h3>Risk Mitigation</h3>
+                    <ul>
+                        <li><strong>Week 1 test:</strong> R2K budget only</li>
+                        <li><strong>GO signal:</strong> CPL < R100, CTR > 2%</li>
+                        <li><strong>STOP signal:</strong> CPL > R200, CTR < 1%</li>
+                        <li><strong>Pivot ready:</strong> Unlimited AI iterations</li>
+                        <li><strong>Real backup:</strong> Add photo shoot if needed</li>
+                        <li><strong>Market tested:</strong> R750 consult is 60% cheaper than competitors</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer / Decision -->
+        <div class="footer">
+            <div class="decision">DECISION REQUIRED: APPROVE R50,000 MARKETING INVESTMENT</div>
+            <div>Break-even: 65 clients | Target: 500 clients | 90-day ROI: 750% | 12-month revenue: R2.5M+</div>
+        </div>
+    </div>
+</body>
+</html>
