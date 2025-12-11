@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boland Cricket Analytics Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+```
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        color: #333;
+        min-height: 100vh;
+        padding: 10px;
+    }
+
+    .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        overflow: hidden;
+    }
+
+    /* Header */
+    .header {
+        background: linear-gradient(135deg, #006400 0%, #228B22 50%, #FFD700 100%);
+        padding: 20px;
+        text-align: center;
+        position: relative;
+    }
+
+    .header h1 {
+        color: white;
+        font-size: clamp(1.5rem, 4vw, 2.5rem);
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        margin-bottom: 5px;
+    }
+
+    .header p {
+        color: rgba(255,255,255,0.9);
+        font-size: clamp(0.9rem, 2vw, 1.1rem);
+    }
+
+    /* Subscription Banner */
+    .subscription-banner {
+        background: linear-gradient(90deg, #FF6B35 0%, #F7931E 100%);
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .subscription-banner h3 {
+        color: white;
+        font-size: clamp(1rem, 2.5vw, 1.3rem);
+        flex: 1;
+        min-width: 200px;
+    }
+
+    .subscription-tiers {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .tier-badge {
+        background: white;
+        color: #333;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-weight: bold;
+        font-size: clamp(0.75rem, 1.5vw, 0.9rem);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+    }
+
+    .tier-badge:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .tier-badge.basic { border-color: #95a5a6; }
+    .tier-badge.pro { border-color: #3498db; }
+    .tier-badge.elite { border-color: #f39c12; }
+
+    /* Stats Overview */
+    .stats-overview {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        padding: 20px;
+        background: #f8f9fa;
+    }
+
+    .stat-card {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        text-align: center;
+        transition: transform 0.3s ease;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .stat-card h3 {
+        font-size: clamp(1.8rem, 3vw, 2.5rem);
+        color: #006400;
+        margin-bottom: 5px;
+    }
+
+    .stat-card p {
+        color: #666;
+        font-size: clamp(0.85rem, 1.5vw, 1rem);
+    }
+
+    /* Filters */
+    .filters {
+        padding: 20px;
+        background: #f1f3f5;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    .filter-group {
+        flex: 1;
+        min-width: 150px;
+    }
+
+    .filter-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 600;
+        font-size: clamp(0.85rem, 1.5vw, 0.95rem);
+        color: #495057;
+    }
+
+    select, input {
+        width: 100%;
+        padding: 10px;
+        border: 2px solid #dee2e6;
+        border-radius: 8px;
+        font-size: clamp(0.85rem, 1.5vw, 0.95rem);
+        transition: all 0.3s ease;
+    }
+
+    select:focus, input:focus {
+        outline: none;
+        border-color: #006400;
+    }
+
+    /* Value Add Features */
+    .features-section {
+        padding: 20px;
+        background: white;
+        border-bottom: 2px solid #e9ecef;
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 15px;
+    }
+
+    .feature-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 20px;
+        border-radius: 12px;
+        color: white;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    .feature-card h4 {
+        margin-bottom: 10px;
+        font-size: clamp(1rem, 2vw, 1.2rem);
+    }
+
+    .feature-card p {
+        font-size: clamp(0.85rem, 1.5vw, 0.95rem);
+        opacity: 0.95;
+    }
+
+    .feature-card.ai {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    }
+
+    .feature-card.scout {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    }
+
+    .feature-card.compare {
+        background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    }
+
+    /* Players Table */
+    .players-section {
+        padding: 20px;
+    }
+
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .section-header h2 {
+        color: #006400;
+        font-size: clamp(1.3rem, 3vw, 1.8rem);
+    }
+
+    .view-toggle {
+        display: flex;
+        gap: 5px;
+        background: #e9ecef;
+        padding: 5px;
+        border-radius: 8px;
+    }
+
+    .view-btn {
+        padding: 8px 16px;
+        background: transparent;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+    }
+
+    .view-btn.active {
+        background: white;
+        color: #006400;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    /* Card View */
+    .players-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+    .player-card {
+        background: white;
+        border: 2px solid #e9ecef;
+        border-radius: 12px;
+        padding: 20px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .player-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #006400, #FFD700);
+    }
+
+    .player-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        border-color: #006400;
+    }
+
+    .player-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 15px;
+    }
+
+    .player-info h3 {
+        font-size: clamp(1.1rem, 2vw, 1.3rem);
+        color: #006400;
+        margin-bottom: 5px;
+    }
+
+    .player-info p {
+        color: #666;
+        font-size: clamp(0.85rem, 1.5vw, 0.95rem);
+    }
+
+    .overall-rating {
+        text-align: center;
+        padding: 10px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        min-width: 70px;
+    }
+
+    .overall-rating .score {
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        font-weight: bold;
+        display: block;
+    }
+
+    .overall-rating .label {
+        font-size: clamp(0.7rem, 1.2vw, 0.8rem);
+        color: #666;
+    }
+
+    .rating-excellent { color: #28a745; }
+    .rating-good { color: #17a2b8; }
+    .rating-average { color: #ffc107; }
+    .rating-poor { color: #dc3545; }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+
+    .stat-item {
+        padding: 10px;
+        background: #f8f9fa;
+        border-radius: 6px;
+    }
+
+    .stat-item label {
+        display: block;
+        font-size: clamp(0.75rem, 1.2vw, 0.85rem);
+        color: #666;
+        margin-bottom: 3px;
+    }
+
+    .stat-item value {
+        font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+        font-weight: bold;
+        color: #006400;
+    }
+
+    .ratings-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .rating-item {
+        text-align: center;
+        flex: 1;
+        min-width: 80px;
+    }
+
+    .rating-item label {
+        display: block;
+        font-size: clamp(0.75rem, 1.2vw, 0.85rem);
+        color: #666;
+        margin-bottom: 3px;
+    }
+
+    .stars {
+        color: #FFD700;
+        font-size: clamp(1rem, 2vw, 1.2rem);
+    }
+
+    .player-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        flex: 1;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+        min-width: 100px;
+    }
+
+    .btn-primary {
+        background: #006400;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background: #004d00;
+        transform: scale(1.05);
+    }
+
+    .btn-secondary {
+        background: #6c757d;
+        color: white;
+    }
+
+    .btn-secondary:hover {
+        background: #545b62;
+        transform: scale(1.05);
+    }
+
+    /* Table View */
+    .table-view {
+        display: none;
+        overflow-x: auto;
+    }
+
+    .table-view.active {
+        display: block;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        font-size: clamp(0.8rem, 1.5vw, 0.95rem);
+    }
+
+    thead {
+        background: #006400;
+        color: white;
+        position: sticky;
+        top: 0;
+    }
+
+    th {
+        padding: 15px 10px;
+        text-align: left;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+
+    td {
+        padding: 15px 10px;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+    tbody tr:hover {
+        background: #f8f9fa;
+    }
+
+    /* Subscription Modal */
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.7);
+        z-index: 1000;
+        padding: 20px;
+        overflow-y: auto;
+    }
+
+    .modal.active {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-content {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        max-width: 900px;
+        width: 100%;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    .modal-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .modal-header h2 {
+        color: #006400;
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        margin-bottom: 10px;
+    }
+
+    .pricing-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .pricing-card {
+        border: 3px solid #e9ecef;
+        border-radius: 12px;
+        padding: 30px 20px;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+
+    .pricing-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .pricing-card.recommended {
+        border-color: #f39c12;
+        background: linear-gradient(135deg, #fff5e6 0%, #ffffff 100%);
+    }
+
+    .pricing-card h3 {
+        font-size: clamp(1.3rem, 2.5vw, 1.6rem);
+        margin-bottom: 10px;
+        color: #006400;
+    }
+
+    .price {
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: bold;
+        color: #006400;
+        margin: 20px 0;
+    }
+
+    .price span {
+        font-size: clamp(1rem, 2vw, 1.2rem);
+        color: #666;
+    }
+
+    .features-list {
+        text-align: left;
+        margin: 20px 0;
+    }
+
+    .features-list li {
+        padding: 10px 0;
+        border-bottom: 1px solid #e9ecef;
+        font-size: clamp(0.85rem, 1.5vw, 0.95rem);
+    }
+
+    .features-list li:last-child {
+        border-bottom: none;
+    }
+
+    .close-modal {
+        background: #6c757d;
+        color: white;
+        padding: 12px 30px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: clamp(0.9rem, 1.5vw, 1rem);
+        display: block;
+        margin: 0 auto;
+    }
+
+    .close-modal:hover {
+        background: #545b62;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .players-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .stats-overview {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .features-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .subscription-banner {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .subscription-tiers {
+            justify-content: center;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .stats-overview {
+            grid-template-columns: 1fr;
+        }
+
+        .player-actions {
+            flex-direction: column;
+        }
+
+        .btn {
+            width: 100%;
+        }
+    }
+</style>
+```
+
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🏏 Boland Cricket Analytics Platform</h1>
+            <p>Data-Driven Player Recruitment & Performance Intelligence</p>
+        </div>
+
+```
+    <!-- Subscription Banner -->
+    <div class="subscription-banner">
+        <h3>📊 Unlock Premium Analytics & Insights</h3>
+        <div class="subscription-tiers">
+            <div class="tier-badge basic" onclick="showSubscription()">Basic - R499/mo</div>
+            <div class="tier-badge pro" onclick="showSubscription()">Pro - R1,999/mo</div>
+            <div class="tier-badge elite" onclick="showSubscription()">Elite - R4,999/mo</div>
+        </div>
+    </div>
+
+    <!-- Stats Overview -->
+    <div class="stats-overview">
+        <div class="stat-card">
+            <h3>247</h3>
+            <p>Active Players</p>
+        </div>
+        <div class="stat-card">
+            <h3>18</h3>
+            <p>Teams Tracked</p>
+        </div>
+        <div class="stat-card">
+            <h3>12</h3>
+            <p>Venues</p>
+        </div>
+        <div class="stat-card">
+            <h3>156</h3>
+            <p>Matches Analyzed</p>
+        </div>
+    </div>
+
+    <!-- Value-Add Features -->
+    <div class="features-section">
+        <div class="features-grid">
+            <div class="feature-card ai" onclick="alert('AI Predictive Modeling: Uses machine learning to forecast player performance trends, injury risk, and career trajectory. Helps identify rising stars before they peak.')">
+                <h4>🤖 AI Predictive Modeling</h4>
+                <p>Machine learning forecasts for performance trends, injury risk & talent trajectory</p>
+            </div>
+            <div class="feature-card scout" onclick="alert('Smart Scout Network: Connect with 50+ verified scouts across SA provinces. Get real-time match reports, video clips, and recommendations from trusted talent spotters.')">
+                <h4>🎯 Smart Scout Network</h4>
+                <p>Real-time match reports from 50+ verified scouts across provinces</p>
+            </div>
+            <div class="feature-card compare" onclick="alert('Advanced Player Comparison: Side-by-side analytics with historical benchmarks. Compare current players against legends at the same age/stage. Identify undervalued talent.')">
+                <h4>⚡ Advanced Comparison Engine</h4>
+                <p>Side-by-side analytics with historical benchmarks & peer comparisons</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters">
+        <div class="filter-group">
+            <label>Role</label>
+            <select id="roleFilter" onchange="filterPlayers()">
+                <option value="all">All Roles</option>
+                <option value="batsman">Batsman</option>
+                <option value="bowler">Bowler</option>
+                <option value="all-rounder">All-Rounder</option>
+                <option value="wicket-keeper">Wicket-Keeper</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label>Province/Region</label>
+            <select id="regionFilter" onchange="filterPlayers()">
+                <option value="all">All Regions</option>
+                <option value="western-cape">Western Cape</option>
+                <option value="gauteng">Gauteng</option>
+                <option value="eastern-cape">Eastern Cape</option>
+                <option value="kwazulu-natal">KwaZulu-Natal</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label>Age Group</label>
+            <select id="ageFilter" onchange="filterPlayers()">
+                <option value="all">All Ages</option>
+                <option value="u17">Under 17</option>
+                <option value="u19">Under 19</option>
+                <option value="u21">Under 21</option>
+                <option value="senior">Senior (21+)</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label>Search Player</label>
+            <input type="text" id="searchInput" placeholder="Search by name..." oninput="filterPlayers()">
+        </div>
+    </div>
+
+    <!-- Players Section -->
+    <div class="players-section">
+        <div class="section-header">
+            <h2>Top Performers</h2>
+            <div class="view-toggle">
+                <button class="view-btn active" onclick="toggleView('card')">Card View</button>
+                <button class="view-btn" onclick="toggleView('table')">Table View</button>
+            </div>
+        </div>
+
+        <!-- Card View -->
+        <div class="players-grid" id="cardView">
+            <!-- Player cards will be generated by JavaScript -->
+        </div>
+
+        <!-- Table View -->
+        <div class="table-view" id="tableView">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Player</th>
+                        <th>Role</th>
+                        <th>Age</th>
+                        <th>Overall</th>
+                        <th>Performance</th>
+                        <th>Consistency</th>
+                        <th>Fitness</th>
+                        <th>Key Stats</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Table rows will be generated by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Subscription Modal -->
+<div class="modal" id="subscriptionModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Choose Your Analytics Plan</h2>
+            <p>Unlock powerful insights to build winning teams</p>
+        </div>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>Basic</h3>
+                <div class="price">R499<span>/month</span></div>
+                <ul class="features-list">
+                    <li>✅ Access to top 50 players</li>
+                    <li>✅ Basic performance stats</li>
+                    <li>✅ Weekly reports</li>
+                    <li>✅ 1 region/province</li>
+                    <li>✅ Email support</li>
+                    <li>❌ No AI predictions</li>
+                    <li>❌ No scout network</li>
+                </ul>
+                <button class="btn btn-primary">Select Basic</button>
+            </div>
+            <div class="pricing-card recommended">
+                <h3>Pro ⭐ Most Popular</h3>
+                <div class="price">R1,999<span>/month</span></div>
+                <ul class="features-list">
+                    <li>✅ Access to all 247 players</li>
+                    <li>✅ Advanced analytics & trends</li>
+                    <li>✅ Daily reports</li>
+                    <li>✅ All regions & provinces</li>
+                    <li>✅ AI performance predictions</li>
+                    <li>✅ Scout network access</li>
+                    <li>✅ Player comparison tool</li>
+                    <li>✅ Priority support</li>
+                </ul>
+                <button class="btn btn-primary">Select Pro</button>
+            </div>
+            <div class="pricing-card">
+                <h3>Elite</h3>
+                <div class="price">R4,999<span>/month</span></div>
+                <ul class="features-list">
+                    <li>✅ Everything in Pro</li>
+                    <li>✅ International player database</li>
+                    <li>✅ Custom analytics reports</li>
+                    <li>✅ API access for integration</li>
+                    <li>✅ White-label options</li>
+                    <li>✅ Video analysis integration</li>
+                    <li>✅ Dedicated account manager</li>
+                    <li>✅ 24/7 phone support</li>
+                </ul>
+                <button class="btn btn-primary">Select Elite</button>
+            </div>
+        </div>
+        <button class="close-modal" onclick="closeSubscription()">Close</button>
+    </div>
+</div>
+
+<script>
+    // Player data
+    const players = [
+        {
+            name: "Thabo Malgas",
+            age: 19,
+            role: "all-rounder",
+            region: "western-cape",
+            performance: 5,
+            consistency: 4.5,
+            fitness: 3.5,
+            overall: 4.3,
+            battingAvg: 42,
+            strikeRate: 145,
+            bestVenue: "Newlands",
+            venueAvg: 58,
+            boundaryPct: 35,
+            dotBallPct: 18,
+            email: "thabo.malgas@email.com"
+        },
+        {
+            name: "Aiden van Wyk",
+            age: 17,
+            role: "batsman",
+            region: "western-cape",
+            performance: 3.5,
+            consistency: 5,
+            fitness: 4,
+            overall: 4.2,
+            battingAvg: 35,
+            strikeRate: 128,
+            bestVenue: "Boland Park",
+            venueAvg: 45,
+            boundaryPct: 28,
+            dotBallPct: 22,
+            email: "aiden.vanwyk@email.com"
+        },
+        {
+            name: "Sipho Nkosi",
+            age: 20,
+            role: "bowler",
+            region: "kwazulu-natal",
+            performance: 4.5,
+            consistency: 4,
+            fitness: 5,
+            overall: 4.5,
+            bowlingAvg: 18,
+            economy: 6.2,
+            bestVenue: "Kingsmead",
+            wicketsPerMatch: 2.8,
+            dotBallsBowled: 45,
+            email: "sipho.nkosi@email.com"
+        },
+        {
+            name: "Kyle Petersen",
+            age: 18,
+            role: "wicket-keeper",
+            region: "western-cape",
+            performance: 4,
+            consistency: 4.5,
+            fitness: 4,
+            overall: 4.2,
+            battingAvg: 38,
+            strikeRate: 132,
+            bestVenue: "Newlands",
+            venueAvg: 42,
+            dismissals: 15,
+            catchPct: 92,
+            email: "kyle.petersen@email.com"
+        },
+        {
+            name: "Lwazi Dlamini",
+            age: 21,
+            role: "all-rounder",
+            region: "gauteng",
+            performance: 4.5,
+            consistency: 4,
+            fitness: 4.5,
+            overall: 4.3,
+            battingAvg: 36,
+            strikeRate: 138,
+            bowlingAvg: 22,
+            economy: 7.1,
+            bestVenue: "Wanderers",
+            email: "lwazi.dlamini@email.com"
+        },
+        {
+            name: "Ruan Botha",
+            age: 19,
+            role: "batsman",
+            region: "gauteng",
+            performance: 5,
+            consistency: 3.5,
+            fitness: 4,
+            overall: 4.2,
+            battingAvg: 48,
+            strikeRate: 152,
+            bestVenue: "Centurion",
+            venueAvg: 62,
+            boundaryPct: 38,
+            dotBallPct: 15,
+            email: "ruan.botha@email.com"
+        },
+        {
+            name: "Mandla Zwane",
+            age: 17,
+            role: "bowler",
+            region: "gauteng",
+            performance: 4,
+            consistency: 4.5,
+            fitness: 3.5,
+            overall: 4.0,
+            bowlingAvg: 20,
+            economy: 6.8,
+            bestVenue: "Wanderers",
+            wicketsPerMatch: 2.5,
+            dotBallsBowled: 42,
+            email: "mandla.zwane@email.com"
+        },
+        {
+            name: "Dylan Richards",
+            age: 20,
+            role: "all-rounder",
+            region: "eastern-cape",
+            performance: 4.5,
+            consistency: 4.5,
+            fitness: 5,
+            overall: 4.7,
+            battingAvg: 44,
+            strikeRate: 141,
+            bowlingAvg: 19,
+            economy: 6.5,
+            bestVenue: "St George's Park",
+            email: "dylan.richards@email.com"
+        },
+        {
+            name: "Thando Mthembu",
+            age: 18,
+            role: "batsman",
+            region: "kwazulu-natal",
+            performance: 3.5,
+            consistency: 5,
+            fitness: 4.5,
+            overall: 4.3,
+            battingAvg: 32,
+            strikeRate: 125,
+            bestVenue: "Kingsmead",
+            venueAvg: 38,
+            boundaryPct: 25,
+            dotBallPct: 24,
+            email: "thando.mthembu@email.com"
+        },
+        {
+            name: "Charl Olivier",
+            age: 21,
+            role: "bowler",
+            region: "western-cape",
+            performance: 5,
+            consistency: 4,
+            fitness: 4,
+            overall: 4.3,
+            bowlingAvg: 16,
+            economy: 5.9,
+            bestVenue: "Paarl",
+            wicketsPerMatch: 3.2,
+            dotBallsBowled: 48,
+            email: "charl.olivier@email.com"
+        },
+        {
+            name: "Siyabonga Madida",
+            age: 19,
+            role: "wicket-keeper",
+            region: "eastern-cape",
+            performance: 4,
+            consistency: 4,
+            fitness: 4.5,
+            overall: 4.2,
+            battingAvg: 34,
+            strikeRate: 130,
+            bestVenue: "Buffalo Park",
+            venueAvg: 40,
+            dismissals: 18,
+            catchPct: 89,
+            email: "siyabonga.madida@email.com"
+        },
+        {
+            name: "Liam van der Merwe",
+            age: 17,
+            role: "all-rounder",
+            region: "western-cape",
+            performance: 3.5,
+            consistency: 4,
+            fitness: 5,
+            overall: 4.2,
+            battingAvg: 30,
+            strikeRate: 135,
+            bowlingAvg: 24,
+            economy: 7.5,
+            bestVenue: "Boland Park",
+            email: "liam.vandermerwe@email.com"
+        },
+        {
+            name: "Kagiso Molefe",
+            age: 20,
+            role: "batsman",
+            region: "gauteng",
+            performance: 4.5,
+            consistency: 3.5,
+            fitness: 3.5,
+            overall: 3.8,
+            battingAvg: 40,
+            strikeRate: 148,
+            bestVenue: "Centurion",
+            venueAvg: 52,
+            boundaryPct: 32,
+            dotBallPct: 19,
+            email: "kagiso.molefe@email.com"
+        }
+    ];
+
+    // Generate star rating HTML
+    function generateStars(rating) {
+        const fullStars = Math.floor(rating);
+        const halfStar = rating % 1 >= 0.5;
+        let stars = '';
+        
+        for (let i = 0; i < fullStars; i++) {
+            stars += '★';
+        }
+        if (halfStar) {
+            stars += '⯨';
+        }
+        const emptyStars = 5 - Math.ceil(rating);
+        for (let i = 0; i < emptyStars; i++) {
+            stars += '☆';
+        }
+        
+        return stars;
+    }
+
+    // Get rating class
+    function getRatingClass(rating) {
+        if (rating >= 4.5) return 'rating-excellent';
+        if (rating >= 4) return 'rating-good';
+        if (rating >= 3) return 'rating-average';
+        return 'rating-poor';
+    }
+
+    // Generate player cards
+    function generatePlayerCards(playerList) {
+        const cardView = document.getElementById('cardView');
+        cardView.innerHTML = '';
+
+        playerList.forEach(player => {
+            const card = document.createElement('div');
+            card.className = 'player-card';
+            
+            let statsHTML = '';
+            if (player.role === 'bowler') {
+                statsHTML = `
+                    <div class="stat-item">
+                        <label>Bowling Avg</label>
+                        <value>${player.bowlingAvg}</value>
+                    </div>
+                    <div class="stat-item">
+                        <label>Economy</label>
+                        <value>${player.economy}</value>
+                    </div>
+                    <div class="stat-item">
+                        <label>Wickets/Match</label>
+                        <value>${player.wicketsPerMatch}</value>
+                    </div>
+                    <div class="stat-item">
+                        <label>Dot Ball %</label>
+                        <value>${player.dotBallsBowled}%</value>
+                    </div>
+                `;
+            } else if (player.role === 'wicket-keeper') {
+                statsHTML = `
+                    <div class="stat-item">
+                        <label>Batting Avg</label>
+                        <value>${player.battingAvg}</value>
+                    </div>
+                    <div class="stat-item">
+                        <label>Strike Rate</label>
+                        <value>${player.strikeRate}</value>
+                    </div>
+                    <div class="stat-item">
+                        <label>Dismissals</label>
+                        <value>${player.dismissals}</value>
+                    </div>
+                    <div class="stat-item">
+                        <label>Catch %</label>
+                        <value>${player.catchPct}%</value>
+                    </div>
+                `;
+            } else if (player.role === 'all-rounder') {
+                statsHTML = `
+                    <div class="stat-item">
+                        <label>Batting Avg</label>
+                        <value>${player.battingAvg}</value>
+                    </div>
+                    <div class="stat-item">
+                        <label>Strike Rate</label>
+                        <value>${player.strikeRate}</value>
+                    </div>
+                    <div class="stat-item">
+                        <label>Bowling Avg</label>
+                        <value>${player.bowlingAvg}</value>
+                    </div>
+                    <div class="stat-item">
+                        <label>Economy</label>
+                        <value>${player.economy}</value>
+                    </div>
+                `;
+            } else {
+                statsHTML = `
+                    <div class="stat-item">
+                        <label>Batting Avg</label>
+                        <value>${player.battingAvg}</value>
+                    </div>
+                    <div class="stat-item">
+                        <label>Strike Rate</label>
+                        <value>${player.strikeRate}</value>
+                    </div>
+                    <div class="stat-item">
+                        <label>Boundary %</label>
+                        <value>${player.boundaryPct}%</value>
+                    </div>
+                    <div class="stat-item">
+                        <label>Best Venue</label>
+                        <value>${player.bestVenue}</value>
+                    </div>
+                `;
+            }
+
+            card.innerHTML = `
+                <div class="player-header">
+                    <div class="player-info">
+                        <h3>${player.name}</h3>
+                        <p>${player.age} years • ${player.role.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}</p>
+                    </div>
+                    <div class="overall-rating">
+                        <span class="score ${getRatingClass(player.overall)}">${player.overall.toFixed(1)}</span>
+                        <span class="label">Overall</span>
+                    </div>
+                </div>
+                <div class="stats-grid">
+                    ${statsHTML}
+                </div>
+                <div class="ratings-row">
+                    <div class="rating-item">
+                        <label>Performance</label>
+                        <div class="stars">${generateStars(player.performance)}</div>
+                    </div>
+                    <div class="rating-item">
+                        <label>Consistency</label>
+                        <div class="stars">${generateStars(player.consistency)}</div>
+                    </div>
+                    <div class="rating-item">
+                        <label>Fitness</label>
+                        <div class="stars">${generateStars(player.fitness)}</div>
+                    </div>
+                </div>
+                <div class="player-actions">
+                    <button class="btn btn-primary" onclick="sendInvitation('${player.name}', '${player.email}')">
+                        📧 Send Invitation
+                    </button>
+                    <button class="btn btn-secondary" onclick="viewProfile('${player.name}')">
+                        👤 View Profile
+                    </button>
+                </div>
+            `;
+            
+            cardView.appendChild(card);
+        });
+    }
+
+    // Generate table rows
+    function generateTableRows(playerList) {
+        const tableBody = document.getElementById('tableBody');
+        tableBody.innerHTML = '';
+
+        playerList.forEach(player => {
+            const row = document.createElement('tr');
+            
+            let keyStats = '';
+            if (player.role === 'bowler') {
+                keyStats = `Avg: ${player.bowlingAvg}, Econ: ${player.economy}`;
+            } else if (player.role === 'wicket-keeper') {
+                keyStats = `Avg: ${player.battingAvg}, Dismissals: ${player.dismissals}`;
+            } else if (player.role === 'all-rounder') {
+                keyStats = `Bat: ${player.battingAvg}, Bowl: ${player.bowlingAvg}`;
+            } else {
+                keyStats = `Avg: ${player.battingAvg}, SR: ${player.strikeRate}`;
+            }
+
+            row.innerHTML = `
+                <td><strong>${player.name}</strong></td>
+                <td>${player.role.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}</td>
+                <td>${player.age}</td>
+                <td><strong class="${getRatingClass(player.overall)}">${player.overall.toFixed(1)}</strong></td>
+                <td><span class="stars">${generateStars(player.performance)}</span></td>
+                <td><span class="stars">${generateStars(player.consistency)}</span></td>
+                <td><span class="stars">${generateStars(player.fitness)}</span></td>
+                <td>${keyStats}</td>
+                <td>
+                    <button class="btn btn-primary" onclick="sendInvitation('${player.name}', '${player.email}')">Invite</button>
+                </td>
+            `;
+            
+            tableBody.appendChild(row);
+        });
+    }
+
+    // Filter players
+    function filterPlayers() {
+        const roleFilter = document.getElementById('roleFilter').value;
+        const regionFilter = document.getElementById('regionFilter').value;
+        const ageFilter = document.getElementById('ageFilter').value;
+        const searchInput = document.getElementById('searchInput').value.toLowerCase();
+
+        let filtered = players.filter(player => {
+            const roleMatch = roleFilter === 'all' || player.role === roleFilter;
+            const regionMatch = regionFilter === 'all' || player.region === regionFilter;
+            
+            let ageMatch = true;
+            if (ageFilter === 'u17') ageMatch = player.age < 17;
+            else if (ageFilter === 'u19') ageMatch = player.age >= 17 && player.age < 19;
+            else if (ageFilter === 'u21') ageMatch = player.age >= 19 && player.age < 21;
+            else if (ageFilter === 'senior') ageMatch = player.age >= 21;
+
+            const searchMatch = player.name.toLowerCase().includes(searchInput);
+
+            return roleMatch && regionMatch && ageMatch && searchMatch;
+        });
+
+        // Sort by overall rating
+        filtered.sort((a, b) => b.overall - a.overall);
+
+        generatePlayerCards(filtered);
+        generateTableRows(filtered);
+    }
+
+    // Toggle view
+    function toggleView(view) {
+        const cardView = document.getElementById('cardView');
+        const tableView = document.getElementById('tableView');
+        const buttons = document.querySelectorAll('.view-btn');
+
+        buttons.forEach(btn => btn.classList.remove('active'));
+
+        if (view === 'card') {
+            cardView.style.display = 'grid';
+            tableView.classList.remove('active');
+            buttons[0].classList.add('active');
+        } else {
+            cardView.style.display = 'none';
+            tableView.classList.add('active');
+            buttons[1].classList.add('active');
+        }
+    }
+
+    // Send invitation
+    function sendInvitation(name, email) {
+        alert(`📧 Invitation sent to ${name} (${email})!\n\nThe player has been notified about the opportunity to join the trial program.`);
+    }
+
+    // View profile
+    function viewProfile(name) {
+        alert(`👤 Opening detailed profile for ${name}...\n\nThis would show:\n• Complete match history\n• Performance trends\n• Video highlights\n• Scout reports\n• AI predictions`);
+    }
+
+    // Show subscription modal
+    function showSubscription() {
+        document.getElementById('subscriptionModal').classList.add('active');
+    }
+
+    // Close subscription modal
+    function closeSubscription() {
+        document.getElementById('subscriptionModal').classList.remove('active');
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+        filterPlayers();
+    });
+</script>
+```
+
+</body>
+</html>
