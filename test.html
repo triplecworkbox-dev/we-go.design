@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Water Conservation Dashboard</title>
+<style>
+  /* Global Styles */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f3f8f9;
+    margin: 0;
+    padding: 0;
+    color: #024059;
+  }
+
+  header {
+    background-color: #028090;
+    color: #f3f8f9;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+  }
+
+  .description {
+    text-align: center;
+    margin: 1rem auto;
+    max-width: 600px;
+    padding: 0 1rem;
+  }
+
+  .input-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem;
+  }
+
+  .input-section input {
+    padding: 0.5rem;
+    width: 80%;
+    max-width: 300px;
+    border-radius: 5px;
+    border: 1px solid #028090;
+    font-size: 1rem;
+  }
+
+  .input-section button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    background-color: #00afb9;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .input-section button:hover {
+    background-color: #028090;
+  }
+
+  .recommendations, .progress-container {
+    margin: 1rem;
+    text-align: center;
+  }
+
+  .progress-container {
+    width: 90%;
+    max-width: 400px;
+    background-color: #ddd;
+    border-radius: 20px;
+    margin: 1rem auto;
+    overflow: hidden;
+  }
+
+  .progress-bar {
+    height: 25px;
+    width: 0%;
+    background-color: #00afb9;
+    line-height: 25px;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .recommendation-card {
+    background-color: #e0f7f9;
+    border-radius: 10px;
+    padding: 1rem;
+    margin: 0.5rem auto;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0px 2px 5px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+
+  .recommendation-card:hover {
+    transform: scale(1.02);
+  }
+
+  .recommendation-card h3 {
+    margin-top: 0;
+  }
+
+  .details {
+    display: none;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  footer {
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.9rem;
+    color: #024059;
+  }
+
+  /* Mobile Responsive */
+  @media (max-width: 500px) {
+    header h1 {
+      font-size: 1.5rem;
+    }
+
+    .progress-bar {
+      font-size: 0.9rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Water Conservation Dashboard</h1>
+</header>
+
+<div class="description">
+  <p>Enter your daily water usage to track your consumption and receive personalized tips to reduce waste.</p>
+</div>
+
+<div class="input-section">
+  <input type="number" id="dailyUsage" placeholder="Enter daily water usage in liters">
+  <button onclick="addUsage()">Add Usage</button>
+</div>
+
+<div class="progress-container">
+  <div class="progress-bar" id="progressBar">0%</div>
+</div>
+
+<div class="recommendations">
+  <div class="recommendation-card" onclick="toggleDetails(this)">
+    <h3>Check for leaks</h3>
+    <div class="details">Small leaks can waste 20-50 liters per day. Inspect taps, toilets, and pipes.</div>
+  </div>
+  <div class="recommendation-card" onclick="toggleDetails(this)">
+    <h3>Use low-flow taps and showerheads</h3>
+    <div class="details">Replacing fixtures can reduce water usage by up to 30% per day.</div>
+  </div>
+  <div class="recommendation-card" onclick="toggleDetails(this)">
+    <h3>Optimize garden irrigation</h3>
+    <div class="details">Water early morning or late evening to reduce evaporation. Consider drip irrigation or rainwater collection.</div>
+  </div>
+  <div class="recommendation-card" onclick="toggleDetails(this)">
+    <h3>Shorten showers</h3>
+    <div class="details">Reducing showers by 2 minutes can save ~20 liters per person per day.</div>
+  </div>
+</div>
+
+<footer id="summary">
+  Total water recorded: 0 liters. Target: 150 liters/day.
+</footer>
+
+<script>
+  let dailyRecords = [];
+  const target = 150; // Example daily target in liters
+
+  function addUsage() {
+    const input = document.getElementById('dailyUsage');
+    const value = parseFloat(input.value);
+    if(isNaN(value) || value <= 0){
+      alert("Please enter a valid water usage in liters.");
+      return;
+    }
+    dailyRecords.push(value);
+    input.value = '';
+    updateDashboard();
+  }
+
+  function updateDashboard() {
+    const total = dailyRecords.reduce((a,b) => a+b, 0);
+    const average = total / dailyRecords.length;
+    const percent = Math.min(Math.round((target / average) * 100), 100);
+
+    const progressBar = document.getElementById('progressBar');
+    progressBar.style.width = percent + '%';
+    progressBar.innerText = percent + '%';
+
+    const summary = document.getElementById('summary');
+    summary.innerText = `Total water recorded: ${total.toFixed(1)} liters. Average daily usage: ${average.toFixed(1)} liters. Target: ${target} liters/day.`;
+  }
+
+  function toggleDetails(card) {
+    const details = card.querySelector('.details');
+    if(details.style.display === 'block') {
+      details.style.display = 'none';
+    } else {
+      details.style.display = 'block';
+    }
+  }
+</script>
+
+</body>
+</html>
